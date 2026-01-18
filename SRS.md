@@ -1,25 +1,43 @@
-# Cahier des charges (SRS léger) — <Nom du projet>
-**Équipe :** <Noms>  
-**Date :** <YYYY-MM-DD>  
-**Version :** <v0.1 / v1.0>
+# Cahier des charges (SRS léger) — <Stocks Investhink>
+**Équipe :** <Seydina Mouhammad Sylla / Chatib Ismail / Sergio Acosta>  
+**Date :** <2026-01-18>  
+**Version :** <v1.0>
 
 ---
 
 ## 1. Contexte & objectif
 - **Contexte :** <Pourquoi ce projet existe?>
+Ce projet est né de notre passion et intérêt pour le trading et l’analyse des marchés financiers. 
+Beaucoup de personnes débutantes s’intéressent au Trading, mais trouvent les outils existants trop complexes ou difficiles à comprendre. 
+Cette application vise à proposer une approche plus simple et accessible.
+
 - **Objectif principal :** <Valeur attendue / problème résolu>
+L’objectif principal est de fournir une information claire et facile à comprendre à partir des prix historiques des actions, 
+afin d’aider les débutants à s’intéresser au trading et à prendre des décisions de manière plus informée, 
+grâce à des indicateurs simples et des signaux d’achat ou de vente.
+
 - **Parties prenantes :** <utilisateurs, client, admin, etc.>
+Utilisateur final : Personnes débutantes en Trading
+Développeurs : Étudiants passionnés par le Trading
+¿¿D'autres??
 
 ---
 
 ## 2. Portée (Scope)
 ### 2.1 Inclus (IN)
-- IN-1 : <fonction / cas d’usage inclus>
-- IN-2 : <...>
+- IN-1 : Importer des données historiques de prix d’actions à partir de fichiers CSV  
+- IN-2 : Analyser l’évolution des prix des actions dans le temps  
+- IN-3 : Calculer des indicateurs techniques simples (SMA, EMA, RSI) 
+- IN-4 : Générer des signaux d’achat ou de vente
+- IN-5 : Afficher les résultats sous forme de graphiques simples
+- IN-6 : Produire un rapport récapitulatif des tendances et des signaux
 
 ### 2.2 Exclu (OUT)
-- OUT-1 : <fonction explicitement hors scope>
-- OUT-2 : <...>
+- OUT-1 : Analyse d'autres actifs financiers que les actions (Wall Street Stocks)
+- OUT-2 : Prédiction des prix futurs des actions
+- OUT-3 : Conseils financiers personnalisés
+- OUT-4 : Connexion à une vraie plateforme de trading pour acheter ou vendre des actions
+- OUT-5 : Gestion de portefeuilles complexes ou multi-utilisateurs
 
 ---
 
