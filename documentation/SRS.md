@@ -88,10 +88,45 @@ Développeurs : Étudiants passionnés par le Trading
 ---
 
 ## 7. Données & règles métier (si applicable)
-- **Entités principales :** <User, Order, ...>
-- **Règles métier :** <validation, calculs, permissions, etc.>
+- **Entités principales :**
+Stock
+Attributs :
+Ticker (symbole) : string (ex. AAPL)
+Nom : string (ex. Apple Inc.)
+Prix historique : liste de float, avec dates correspondantes
 
----
+Description : Représente un Stock sur le marché boursier avec ses données historiques.
+
+Indicateur technique
+Attributs :
+Nom : string (ex. SMA, EMA, RSI)
+Valeur : float
+Période : entier (ex. 14 pour RSI, 50 pour SMA)
+Description : Calculé à partir des prix historiques pour aider à visualiser les tendances.
+
+Signal indicatif
+Attributs :
+Type : string (Achat potentiel, Vente potentielle)
+Date : date du signal
+Prix : float
+Indicateur associé : référence à l’indicateur utilisé
+Description : Représente une situation illustrative, pour montrer où un utilisateur pourrait considérer d’acheter ou vendre.
+
+Utilisateur (User)
+Attributs :
+Nom : string
+Email : string
+Préférences : liste (tickers suivis, indicateurs favoris)
+Description : Personne qui utilise l’application pour analyser les actions.
+
+- **Règles métier :** <validation, calculs, permissions, etc.>
+- Les signaux générés sont indicatifs uniquement et ne constituent pas un conseil financier.
+- Les indicateurs techniques doivent être calculés à partir des prix historiques valides.
+- Les graphiques et rapports doivent correspondre aux données importées et aux indicateurs calculés.
+- L’utilisateur peut importer plusieurs tickers et analyser leurs prix dans le temps.
+- Les données historiques doivent provenir uniquement de sources fiables ou fichiers CSV valides.
+- ¿D'autres?
+
 
 ## 8. Hypothèses & dépendances
 ### 8.1 Hypothèses
