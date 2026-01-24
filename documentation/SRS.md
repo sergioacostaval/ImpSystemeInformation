@@ -16,7 +16,7 @@ afin d’aider les débutants à s’intéresser au trading et à prendre des d�
 grâce à des indicateurs simples et des signaux indicatifs d’achat ou de vente. L’application inclut un système d’authentification (compte utilisateur avec identifiant et mot de passe) afin de personnaliser l’expérience et sécuriser l’accès aux fonctionnalités.
 - **Parties prenantes :** <utilisateurs, client, admin, etc.>
 Utilisateur final : Personnes débutantes en Trading
-Développeurs : Étudiants passionnés par le Trading
+Développeurs : Étudiants passionnés par le Trading  
 ¿¿D'autres??
 
 ---
