@@ -6,15 +6,15 @@
 ---
 
 ## 1. Contexte & objectif
-- **Contexte :** <Pourquoi ce projet existe?>
+- **Contexte :**
 Ce projet est né de notre passion et intérêt pour le trading et l’analyse des marchés financiers. 
 Beaucoup de personnes débutantes s’intéressent au Trading, mais trouvent les outils existants trop complexes ou difficiles à comprendre. 
 Cette application vise à proposer une approche plus simple et accessible.
-- **Objectif principal :** <Valeur attendue / problème résolu>
+- **Objectif principal :**
 L’objectif principal est de fournir une information claire et facile à comprendre à partir des prix historiques des actions, 
 afin d’aider les débutants à s’intéresser au trading et à prendre des décisions de manière plus informée, 
 grâce à des indicateurs simples et des signaux indicatifs d’achat ou de vente. L’application inclut un système d’authentification (compte utilisateur avec identifiant et mot de passe) afin de personnaliser l’expérience et sécuriser l’accès aux fonctionnalités.
-- **Parties prenantes :** <utilisateurs, client, admin, etc.>
+- **Parties prenantes :**
 Utilisateur final : Personnes débutantes en Trading
 Développeurs : Étudiants passionnés par le Trading  
 ¿¿D'autres??
