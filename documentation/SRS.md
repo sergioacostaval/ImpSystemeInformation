@@ -15,9 +15,8 @@ L’objectif principal est de fournir une information claire et facile à compre
 afin d’aider les débutants à s’intéresser au trading et à prendre des décisions de manière plus informée, 
 grâce à des indicateurs simples et des signaux indicatifs d’achat ou de vente. L’application inclut un système d’authentification (compte utilisateur avec identifiant et mot de passe) afin de personnaliser l’expérience et sécuriser l’accès aux fonctionnalités.
 - **Parties prenantes :**
-Utilisateur final : Personnes débutantes en Trading
-Développeurs : Étudiants passionnés par le Trading  
-¿¿D'autres??
+Utilisateur final : Personnes débutantes en Trading, Enseignant et Évaluateurs.
+Développeurs : Étudiants passionnés par le Trading
 
 ---
 
@@ -56,15 +55,16 @@ Développeurs : Étudiants passionnés par le Trading
 ---
 
 ## 4. Exigences fonctionnelles (FR)
-- **FR-1 :** Le système doit permettre d’obtenir des données historiques de prix d’actions à partir d’une source locale (.CSV) ou d’une source web fiable (point à vérifier).
+- **FR-1 :** Le système doit permettre d’obtenir des données historiques de prix d’actions à partir d’une source locale (.CSV) ou d’une source web fiable (Yahoo Finance). Pour le CSV, le format attendu: (colonnes Date/Open/High/Low/Close/Volume).
 - **FR-2 :** Le système doit analyser l’évolution des prix des actions dans le temps.
-- **FR-3 :** Le système doit calculer des indicateurs techniques simples (Initialement on propose SMA, EMA et RSI, mais c'est un point à vérifier).
-- **FR-4 :** Le système doit générer des signaux indicatifs basés sur l’analyse technique, afin d’illustrer des situations potentielles d’achat ou de vente.
+- **FR-3 :** Le système doit calculer des indicateurs techniques simples (Initialement on propose SMA, EMA et RSI). Périodes par défaut SMA(20), EMA(20), RSI(14).
+- **FR-4 :** Le système doit générer des signaux indicatifs basés sur l’analyse technique, afin d’illustrer des situations potentielles d’achat ou de vente. Des signaux éducatifs, ils ne sont pas des conseils d'achat ou de vente, car ils servent seulement pour illustrer et enseigner les utilisateurs sur les indicateurs.
 - **FR-5 :** Le système doit afficher les prix, les indicateurs et les signaux sous forme de graphiques simples.
 - **FR-6 :** Le système doit produire un rapport récapitulatif des résultats de l’analyse.
-- **FR-7 :** Le système doit permettre à un utilisateur de créer un compte avec un identifiant (email) et un mot de passe.
-- **FR-8 :** Le système doit permettre à un utilisateur authentifié de se connecter et de se déconnecter.
+- **FR-7 :** Le système doit permettre à un utilisateur de créer un compte avec un identifiant (email) et un mot de passe. Pour les regles de mot de passe il faut avoir au minimum 10 caractères où il y a au moins 1 lettre majuscule, 1 lettre minuscule et 1 chiffre.
+- **FR-8 :** Le système doit permettre à un utilisateur authentifié de se connecter et de se déconnecter. Si l'utilisateur oublie le mot de passe, le système doit permettre à l'utilisateur de récuperé son compte avec la création d'un nouveau mot de passe.
 - **FR-9 :** Le système doit restreindre l’accès aux fonctionnalités de l’application aux utilisateurs authentifiés.
+- **FR-10 :** Le système doit gèrer les erreurs adequatement.
 
 
 ---
@@ -73,9 +73,9 @@ Développeurs : Étudiants passionnés par le Trading
 > Performance / sécurité / disponibilité / UX / maintenabilité…
 - **NFR-1 (Performance) :** Le système doit analyser un fichier CSV standard en moins de 2 secondes sur un ordinateur personnel.
 - **NFR-2 (Sécurité) :** Le système doit assurer une gestion sécurisée des comptes utilisateurs (hachage des mots de passe) et ne doit pas stocker de données personnelles sensibles.
-- **NFR-3 (Disponibilité) :** L’application doit fonctionner correctement tant que l’utilisateur a une connexion internet et les données sont disponibles.
-- **NFR-4 (UX) :** L’interface doit être simple et compréhensible pour un utilisateur débutant.
-- **NFR-5 (Maintenabilité) :** Le code doit être propre, structuré de manière claire et bien documentée pour faciliter la maintenance et l’évolution du projet.
+- **NFR-3 (Disponibilité) :** L’application doit fonctionner correctement tant que l’utilisateur a une connexion internet et les données sont disponibles, au moins que l'utilisateur travaille seulement avec le CSV.
+- **NFR-4 (UX) :** L’interface doit être simple et compréhensible pour un utilisateur débutant. Il ne doit pas avoir trop des fonctionnalitées, mais se limiter aux exigences minimales.
+- **NFR-5 (Maintenabilité) :** Le code doit être propre (OOP, Patrons de conception, structure en couches, commentaires) et bien documentée pour faciliter la maintenance et l’évolution du projet.
 
 ---
 
@@ -139,7 +139,6 @@ Descripción: Représente un utilisateur authentifié de l’application. Un com
 - L’utilisateur doit être authentifié pour accéder aux fonctionnalités d’analyse.
 - Les mots de passe ne sont jamais stockés en clair.
 - Chaque utilisateur accède uniquement à ses propres préférences et analyses.
-- ¿D'autres?
 
 
 ## 8. Hypothèses & dépendances
@@ -161,7 +160,7 @@ Descripción: Représente un utilisateur authentifié de l’application. Un com
 ---
 
 ## 9. Critères d’acceptation globaux (Definition of Done – mini)
-- [ ] Toutes les fonctionnalités décrites sont implémentées, fonctionnelles et sont couvertes par des tests unitaires.
+- [ ] Toutes les fonctionnalités décrites sont implémentées, fonctionnelles et sont couvertes par des tests minimaux (Parsing .CSV et Calculs d'indicateurs)
 - [ ] Les erreurs courantes (fichiers invalides, données manquantes, erreurs de calcul) sont gérées correctement.
 - [ ] L’interface utilisateur permet une utilisation simple et compréhensible pour un utilisateur débutant.
 - [ ] La documentation technique et fonctionnelle est à jour (UML, description des choix techniques).
