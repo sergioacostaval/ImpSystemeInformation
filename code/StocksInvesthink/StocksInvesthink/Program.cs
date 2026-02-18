@@ -1,20 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+using StocksInvesthink.Data;
 using StocksInvesthink.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ----------------------------
+// Add services to the container
+// ----------------------------
+
 builder.Services.AddControllersWithViews();
 
-// Singleton
+// Singleton DatabaseManager (exigence du prof)
 builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
+
+// Configuration EF Core + SQLite
+builder.Services.AddDbContext<StocksInvesthinkContext>((serviceProvider, options) =>
+{
+    var dbManager = serviceProvider.GetRequiredService<IDatabaseManager>();
+    options.UseSqlite("Data Source=stocksinvesthink.db");
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ----------------------------
+// Configure HTTP request pipeline
+// ----------------------------
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -29,6 +43,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

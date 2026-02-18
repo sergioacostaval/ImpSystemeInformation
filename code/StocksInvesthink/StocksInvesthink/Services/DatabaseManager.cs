@@ -1,20 +1,38 @@
 ﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using StocksInvesthink.Data;
 
 namespace StocksInvesthink.Services
 {
     public class DatabaseManager : IDatabaseManager
     {
-        private readonly string _connectionString;
+        private static DatabaseManager _instance;
+        private readonly DbContextOptions<StocksInvesthinkContext> _options;
 
-        public DatabaseManager(IConfiguration configuration)
+        private DatabaseManager()
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<StocksInvesthinkContext>();
+            optionsBuilder.UseSqlite("Data Source=stocksinvesthink.db");
+
+            _options = optionsBuilder.Options;
         }
 
-        public SqliteConnection GetConnection()
+        public static DatabaseManager Instance
         {
-            return new SqliteConnection(_connectionString);
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new DatabaseManager();
+                }
+                return _instance;
+            }
+        }
+
+        public DbContextOptions<StocksInvesthinkContext> GetOptions()
+        {
+            return _options;
         }
     }
 }
