@@ -2,7 +2,7 @@
 {
     public class IndicatorValue
     {
-        public int Id { get; set; }
+        public int IndicatorValueId { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -14,6 +14,6 @@
         public int HistoricalPriceId { get; set; }
         public HistoricalPrice HistoricalPrice { get; set; }
 
-        public ICollection<Signal> Signals { get; set; }
+        public ICollection<Signal> Signals { get; set; } = new List<Signal>();
     }
 }

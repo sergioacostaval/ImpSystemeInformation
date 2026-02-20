@@ -2,9 +2,9 @@
 {
     public class Signal
     {
-        public int Id { get; set; }
+        public int SignalId { get; set; }
 
-        public string Type { get; set; } // Buy / Sell
+        public string Type { get; set; } = string.Empty; // Buy / Sell
 
         public DateTime Date { get; set; }
 

@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-// Singleton DatabaseManager (exigence du prof)
+// Singleton DatabaseManager
 builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
 
 // Configuration EF Core + SQLite

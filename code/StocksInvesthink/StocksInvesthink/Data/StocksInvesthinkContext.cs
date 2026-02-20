@@ -39,6 +39,11 @@ namespace StocksInvesthink.Data
                 .WithMany(s => s.UserStocks)
                 .HasForeignKey(us => us.StockId);
 
+            modelBuilder.Entity<UserStock>()
+                .HasMany(us => us.HistoricalPrices)
+                .WithOne(h => h.UserStock)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // HistoricalPrice relation with UserStock (composite FK)
             modelBuilder.Entity<HistoricalPrice>()
                 .HasOne(h => h.UserStock)
@@ -80,6 +85,12 @@ namespace StocksInvesthink.Data
                 .HasOne(up => up.User)
                 .WithOne(u => u.UserPreference)
                 .HasForeignKey<UserPreference>(up => up.UserId);
+
+            //User -> Email Unique
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
         }
     }
 }

@@ -2,10 +2,10 @@
 {
     public class IndicatorType
     {
-        public int Id { get; set; }
+        public int IndicatorTypeId { get; set; }
 
-        public string Name { get; set; } // SMA, EMA, RSI
+        public string Name { get; set; } = string.Empty; // SMA, EMA, RSI
 
-        public ICollection<IndicatorInstance> IndicatorInstances { get; set; }
+        public ICollection<IndicatorInstance> IndicatorInstances { get; set; } = new List<IndicatorInstance>();
     }
 }

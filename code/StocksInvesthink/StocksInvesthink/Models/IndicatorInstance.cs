@@ -2,7 +2,7 @@
 {
     public class IndicatorInstance
     {
-        public int Id { get; set; }
+        public int IndicatorInstanceId { get; set; }
 
         public int Period { get; set; }
 
@@ -14,6 +14,6 @@
 
         public UserStock UserStock { get; set; }
 
-        public ICollection<IndicatorValue> IndicatorValues { get; set; }
+        public ICollection<IndicatorValue> IndicatorValues { get; set; } = new List<IndicatorValue>();
     }
 }

@@ -8,8 +8,8 @@
         public int StockId { get; set; }
         public Stock Stock { get; set; }
 
-        public ICollection<HistoricalPrice> HistoricalPrices { get; set; }
+        public ICollection<HistoricalPrice> HistoricalPrices { get; set; } = new List<HistoricalPrice>();
 
-        public ICollection<IndicatorInstance> IndicatorInstances { get; set; }
+        public ICollection<IndicatorInstance> IndicatorInstances { get; set; } = new List<IndicatorInstance>();
     }
 }
