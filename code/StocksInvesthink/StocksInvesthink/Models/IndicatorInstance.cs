@@ -1,12 +1,13 @@
 ﻿namespace StocksInvesthink.Models
 {
-    public class HistoricalPrice
+    public class IndicatorInstance
     {
         public int Id { get; set; }
 
-        public DateTime Date { get; set; }
+        public int Period { get; set; }
 
-        public decimal ClosePrice { get; set; }
+        public int IndicatorTypeId { get; set; }
+        public IndicatorType IndicatorType { get; set; }
 
         public int UserId { get; set; }
         public int StockId { get; set; }
