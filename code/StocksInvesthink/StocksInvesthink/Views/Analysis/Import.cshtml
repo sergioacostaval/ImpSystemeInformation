@@ -1,6 +1,5 @@
 ﻿@{
-    // Récupération des listes envoyées par le controller
-    var users = ViewBag.Users;
+    // Récupération de la liste des stocks envoyée par le controller
     var stocks = ViewBag.Stocks;
 }
 
@@ -15,17 +14,6 @@
 <!-- Formulaire pour importer un fichier CSV -->
 <form method="post" enctype="multipart/form-data">
 
-    <!-- Sélection de l'utilisateur -->
-    <div>
-        <label>User</label>
-        <select name="userId">
-            @foreach (var u in users)
-            {
-                <option value="@u.UserId">@u.Email</option>
-            }
-        </select>
-    </div>
-
     <!-- Sélection du stock -->
     <div>
         <label>Stock</label>
@@ -37,10 +25,14 @@
         </select>
     </div>
 
+    <br />
+
     <!-- Sélection du fichier CSV -->
     <div>
-        <input type="file" name="file" />
+        <input type="file" name="file" required />
     </div>
+
+    <br />
 
     <!-- Bouton pour lancer l'import -->
     <button type="submit">Importer</button>

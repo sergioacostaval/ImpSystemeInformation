@@ -1,46 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using StocksInvesthink.Data;
 using StocksInvesthink.Services;
 
 namespace StocksInvesthink.Controllers
 {
-    // Controller responsable des fonctionnalités d'analyse des stocks
+    // L'utilisateur doit être authentifié pour accéder à l'analyse
+    [Authorize]
     public class AnalysisController : Controller
     {
         private readonly StocksInvesthinkContext _db;
         private readonly CsvImportService _csv;
 
-        // Injection du DbContext et du service d'import CSV
+        // Injection du DbContext et du service CSV
         public AnalysisController(StocksInvesthinkContext db, CsvImportService csv)
         {
             _db = db;
             _csv = csv;
         }
 
-        // Affiche la page d'import CSV
+        // Page pour importer un fichier CSV
         public async Task<IActionResult> Import()
         {
-            // Charger les utilisateurs disponibles
-            ViewBag.Users = await _db.Users.ToListAsync();
-
             // Charger les stocks disponibles
             ViewBag.Stocks = await _db.Stocks.ToListAsync();
 
             return View();
         }
 
-        // Action appelée lorsque l'utilisateur soumet le formulaire d'import
+        // Traitement du formulaire CSV
         [HttpPost]
-        public async Task<IActionResult> Import(IFormFile file, int userId, int stockId)
+        public async Task<IActionResult> Import(IFormFile file, int stockId)
         {
-            // Appeler le service d'import CSV
+            // Récupération de l'utilisateur connecté depuis le cookie
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            // Import des données CSV pour cet utilisateur
             var rows = await _csv.ImportYahooAsync(file, userId, stockId);
 
-            // Message de confirmation affiché après l'import
             TempData["Message"] = $"Import terminé : {rows} lignes ajoutées";
 
-            // Redirection vers la page d'import
             return RedirectToAction("Import");
         }
     }

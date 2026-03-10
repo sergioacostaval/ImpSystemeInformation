@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<!--
+Page de connexion utilisateur - Permet à un utilisateur authentifié d'accéder aux fonctionnalités
+-->
+
+<h2>Connexion</h2>
+
+@if (ViewBag.Error != null)
+{
+    <!-- Message d'erreur si login invalide -->
+    <div style="color:red">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post">
+
+    <!-- Email utilisateur -->
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required />
+    </div>
+
+    <br />
+
+    <!-- Mot de passe -->
+    <div>
+        <label>Mot de passe</label>
+        <input type="password" name="password" required />
+    </div>
+
+    <br />
+
+    <button type="submit">Se connecter</button>
+
+</form>
+
+<br />
+
+<a href="/Account/Register">Créer un compte</a>

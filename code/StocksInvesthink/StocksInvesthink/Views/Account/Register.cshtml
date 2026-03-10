@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<!--
+Page d'inscription utilisateur - Permet de créer un nouveau compte
+-->
+
+<h2>Créer un compte</h2>
+
+@if (ViewBag.Error != null)
+{
+    <!-- Affichage d'un message d'erreur -->
+    <div style="color:red">
+        @ViewBag.Error
+    </div>
+}
+
+<form method="post">
+
+    <!-- Nom de l'utilisateur -->
+    <div>
+        <label>Nom</label>
+        <input type="text" name="name" required />
+    </div>
+
+    <br />
+
+    <!-- Email utilisateur (identifiant unique) -->
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" required />
+    </div>
+
+    <br />
+
+    <!-- Mot de passe -->
+    <div>
+        <label>Mot de passe</label>
+        <input type="password" name="password" required />
+    </div>
+
+    <br />
+
+    <!-- Information sur les règles du mot de passe -->
+    <small>
+        Le mot de passe doit contenir au minimum 10 caractères,
+        une majuscule, une minuscule et un chiffre.
+    </small>
+
+    <br /><br />
+
+    <button type="submit">Créer le compte</button>
+
+</form>
+
+<br />
+
+<a href="/Account/Login">Déjà un compte ? Se connecter</a>

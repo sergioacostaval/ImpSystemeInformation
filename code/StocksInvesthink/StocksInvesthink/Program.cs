@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using StocksInvesthink.Data;
 using StocksInvesthink.Services;
 
@@ -9,6 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 // ----------------------------
 
 builder.Services.AddControllersWithViews();
+
+// Configuration de l'authentification par cookies
+// Ce mécanisme permet de garder la session de l'utilisateur après connexion
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        // Page vers laquelle rediriger si l'utilisateur n'est pas connecté
+        options.LoginPath = "/Account/Login";
+
+        // Durée de validité du cookie d'authentification
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    });
 
 // Singleton DatabaseManager
 builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
@@ -37,6 +50,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+// Middleware responsable de vérifier l'identité de l'utilisateur
+// Il lit le cookie et authentifie l'utilisateur pour chaque requête
+app.UseAuthentication();
 
 app.UseAuthorization();
 

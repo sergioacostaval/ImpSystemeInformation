@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using StocksInvesthink.Data;
 using StocksInvesthink.Models;
 
@@ -21,6 +22,33 @@ namespace StocksInvesthink.Services
             // Vérifier si le fichier est vide
             if (file == null || file.Length == 0)
                 throw new ArgumentException("CSV vide");
+
+            // Vérifier que l'utilisateur existe
+            bool userExists = await _db.Users.AnyAsync(u => u.UserId == userId);
+            if (!userExists)
+                throw new ArgumentException("Utilisateur invalide.");
+
+            // Vérifier que le stock existe
+            bool stockExists = await _db.Stocks.AnyAsync(s => s.StockId == stockId);
+            if (!stockExists)
+                throw new ArgumentException("Stock invalide.");
+
+            // Vérifier si la relation UserStock existe déjà
+            var userStock = await _db.UserStocks
+                .FirstOrDefaultAsync(us => us.UserId == userId && us.StockId == stockId);
+
+            // Créer automatiquement la relation UserStock si elle n'existe pas
+            if (userStock == null)
+            {
+                userStock = new UserStock
+                {
+                    UserId = userId,
+                    StockId = stockId
+                };
+
+                _db.UserStocks.Add(userStock);
+                await _db.SaveChangesAsync();
+            }
 
             var prices = new List<HistoricalPrice>();
 
@@ -50,7 +78,6 @@ namespace StocksInvesthink.Services
 
                 // Format attendu :
                 // Date,Close,High,Low,Open,Volume
-
                 if (!DateTime.TryParse(parts[0], out var date))
                     continue;
 
@@ -71,9 +98,9 @@ namespace StocksInvesthink.Services
                     ClosePrice = close,
                     Volume = volume,
 
-                    // Clés étrangères
-                    UserId = 1,
-                    StockId = 1
+                    // Clés étrangères dynamiques selon l'utilisateur connecté
+                    UserId = userId,
+                    StockId = stockId
                 });
             }
 
