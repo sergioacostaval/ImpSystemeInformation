@@ -16,6 +16,7 @@
 
         public long Volume { get; set; }
 
+        // Clé composite vers UserStock
         public int UserId { get; set; }
         public int StockId { get; set; }
 

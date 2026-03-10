@@ -1,0 +1,48 @@
+﻿@{
+    // Récupération des listes envoyées par le controller
+    var users = ViewBag.Users;
+    var stocks = ViewBag.Stocks;
+}
+
+<h2>Import CSV</h2>
+
+@if (TempData["Message"] != null)
+{
+    <!-- Message de confirmation après l'import -->
+    <p style="color:green">@TempData["Message"]</p>
+}
+
+<!-- Formulaire pour importer un fichier CSV -->
+<form method="post" enctype="multipart/form-data">
+
+    <!-- Sélection de l'utilisateur -->
+    <div>
+        <label>User</label>
+        <select name="userId">
+            @foreach (var u in users)
+            {
+                <option value="@u.UserId">@u.Email</option>
+            }
+        </select>
+    </div>
+
+    <!-- Sélection du stock -->
+    <div>
+        <label>Stock</label>
+        <select name="stockId">
+            @foreach (var s in stocks)
+            {
+                <option value="@s.StockId">@s.Ticker</option>
+            }
+        </select>
+    </div>
+
+    <!-- Sélection du fichier CSV -->
+    <div>
+        <input type="file" name="file" />
+    </div>
+
+    <!-- Bouton pour lancer l'import -->
+    <button type="submit">Importer</button>
+
+</form>

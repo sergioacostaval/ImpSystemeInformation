@@ -13,6 +13,9 @@ builder.Services.AddControllersWithViews();
 // Singleton DatabaseManager
 builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
 
+//Csv Import Service
+builder.Services.AddScoped<CsvImportService>();
+
 // Configuration EF Core + SQLite
 builder.Services.AddDbContext<StocksInvesthinkContext>((serviceProvider, options) =>
 {

@@ -39,12 +39,18 @@ namespace StocksInvesthink.Data
                 .WithMany(s => s.UserStocks)
                 .HasForeignKey(us => us.StockId);
 
+            // UserStock -> HistoricalPrices
+            // Cette relation utilise une clé étrangère composite :
+            // HistoricalPrice(UserId, StockId) -> UserStock(UserId, StockId)
             modelBuilder.Entity<UserStock>()
                 .HasMany(us => us.HistoricalPrices)
                 .WithOne(h => h.UserStock)
+                .HasForeignKey(h => new { h.UserId, h.StockId })
                 .OnDelete(DeleteBehavior.Cascade);
 
             // HistoricalPrice relation with UserStock (composite FK)
+            // Configuration explicite pour s'assurer qu'EF Core utilise bien
+            // la relation composite définie par UserId + StockId
             modelBuilder.Entity<HistoricalPrice>()
                 .HasOne(h => h.UserStock)
                 .WithMany(us => us.HistoricalPrices)
@@ -90,7 +96,6 @@ namespace StocksInvesthink.Data
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
-
         }
     }
 }
