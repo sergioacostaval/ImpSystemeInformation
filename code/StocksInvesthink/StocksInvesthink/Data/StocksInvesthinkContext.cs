@@ -11,15 +11,15 @@ namespace StocksInvesthink.Data
         }
 
         // DbSets
-        public DbSet<User> Users { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<UserStock> UserStocks { get; set; }
-        public DbSet<HistoricalPrice> HistoricalPrices { get; set; }
-        public DbSet<IndicatorType> IndicatorTypes { get; set; }
-        public DbSet<IndicatorInstance> IndicatorInstances { get; set; }
-        public DbSet<IndicatorValue> IndicatorValues { get; set; }
-        public DbSet<Signal> Signals { get; set; }
-        public DbSet<UserPreference> UserPreferences { get; set; }
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Stock> Stocks => Set<Stock>();
+        public DbSet<UserStock> UserStocks => Set<UserStock>();
+        public DbSet<HistoricalPrice> HistoricalPrices => Set<HistoricalPrice>();
+        public DbSet<IndicatorType> IndicatorTypes => Set<IndicatorType>();
+        public DbSet<IndicatorInstance> IndicatorInstances => Set<IndicatorInstance>();
+        public DbSet<IndicatorValue> IndicatorValues => Set<IndicatorValue>();
+        public DbSet<Signal> Signals => Set<Signal>();
+        public DbSet<UserPreference> UserPreferences => Set<UserPreference>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -92,7 +92,7 @@ namespace StocksInvesthink.Data
                 .WithOne(u => u.UserPreference)
                 .HasForeignKey<UserPreference>(up => up.UserId);
 
-            //User -> Email Unique
+            // User -> Email Unique
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();

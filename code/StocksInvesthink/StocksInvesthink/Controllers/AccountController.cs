@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StocksInvesthink.Data;
+using StocksInvesthink.Models;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using StocksInvesthink.Data;
-using StocksInvesthink.Models;
 
 namespace StocksInvesthink.Controllers
 {
@@ -14,7 +14,6 @@ namespace StocksInvesthink.Controllers
     {
         private readonly StocksInvesthinkContext _context;
 
-        // Injection du DbContext pour accéder à la base de données
         public AccountController(StocksInvesthinkContext context)
         {
             _context = context;
@@ -34,31 +33,26 @@ namespace StocksInvesthink.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string name, string email, string password)
         {
-            // Vérifier si l'utilisateur existe déjà
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-
-            if (existingUser != null)
+            // Vérifier si l'email existe déjà
+            bool emailExists = await _context.Users.AnyAsync(u => u.Email == email);
+            if (emailExists)
             {
                 ViewBag.Error = "Cet email est déjà utilisé.";
                 return View();
             }
 
-            // Validation des règles du mot de passe selon le SRS
+            // Vérifier le mot de passe selon les règles demandées
             if (!IsValidPassword(password))
             {
-                ViewBag.Error = "Le mot de passe doit contenir au minimum 10 caractères, une majuscule, une minuscule et un chiffre.";
+                ViewBag.Error = "Le mot de passe doit contenir au moins 10 caractères, une majuscule, une minuscule et un chiffre.";
                 return View();
             }
 
-            // Hachage du mot de passe avant stockage en base
+            // Hacher le mot de passe avant sauvegarde
             string passwordHash = HashPassword(password);
 
-            var user = new User
-            {
-                Name = name,
-                Email = email,
-                PasswordHash = passwordHash
-            };
+            // Créer un nouvel utilisateur avec encapsulation
+            var user = new User(name, email, passwordHash);
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();

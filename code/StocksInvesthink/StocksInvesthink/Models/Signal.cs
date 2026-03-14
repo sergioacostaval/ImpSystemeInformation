@@ -2,15 +2,40 @@
 {
     public class Signal
     {
-        public int SignalId { get; set; }
+        public int SignalId { get; private set; }
 
-        public string Type { get; set; } = string.Empty; // Buy / Sell
+        public string Type { get; private set; } = string.Empty; // Buy / Sell
+        public DateTime Date { get; private set; }
+        public decimal Price { get; private set; }
 
-        public DateTime Date { get; set; }
+        public int IndicatorValueId { get; private set; }
+        public IndicatorValue IndicatorValue { get; private set; } = null!;
 
-        public decimal Price { get; set; }
+        // Constructeur vide requis par EF Core
+        private Signal()
+        {
+        }
 
-        public int IndicatorValueId { get; set; }
-        public IndicatorValue IndicatorValue { get; set; }
+        // Constructeur principal
+        public Signal(string type, DateTime date, decimal price, int indicatorValueId)
+        {
+            SetType(type);
+
+            if (indicatorValueId <= 0)
+                throw new ArgumentException("IndicatorValueId invalide.");
+
+            Date = date;
+            Price = price;
+            IndicatorValueId = indicatorValueId;
+        }
+
+        // Modifier le type de signal
+        public void SetType(string type)
+        {
+            if (string.IsNullOrWhiteSpace(type))
+                throw new ArgumentException("Le type de signal est obligatoire.");
+
+            Type = type.Trim();
+        }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using StocksInvesthink.Data;
-using StocksInvesthink.Services;
+using StocksInvesthink.Services.Facade;
 
 namespace StocksInvesthink.Controllers
 {
@@ -12,13 +12,13 @@ namespace StocksInvesthink.Controllers
     public class AnalysisController : Controller
     {
         private readonly StocksInvesthinkContext _db;
-        private readonly CsvImportService _csv;
+        private readonly IStockAnalysisFacade _analysisFacade;
 
-        // Injection du DbContext et du service CSV
-        public AnalysisController(StocksInvesthinkContext db, CsvImportService csv)
+        // Injection du DbContext et de la façade d'analyse
+        public AnalysisController(StocksInvesthinkContext db, IStockAnalysisFacade analysisFacade)
         {
             _db = db;
-            _csv = csv;
+            _analysisFacade = analysisFacade;
         }
 
         // Page pour importer un fichier CSV
@@ -37,8 +37,8 @@ namespace StocksInvesthink.Controllers
             // Récupération de l'utilisateur connecté depuis le cookie
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            // Import des données CSV pour cet utilisateur
-            var rows = await _csv.ImportYahooAsync(file, userId, stockId);
+            // Lancer l'analyse via la façade
+            int rows = await _analysisFacade.RunFullAnalysisAsync(file, userId, stockId);
 
             TempData["Message"] = $"Import terminé : {rows} lignes ajoutées";
 

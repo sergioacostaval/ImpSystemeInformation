@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using StocksInvesthink.Data;
 using StocksInvesthink.Services;
+using StocksInvesthink.Services.Facade;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,8 +27,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Singleton DatabaseManager
 builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
 
-//Csv Import Service
+// Service d'import CSV
 builder.Services.AddScoped<CsvImportService>();
+
+// Enregistrement de la façade
+builder.Services.AddScoped<IStockAnalysisFacade, StockAnalysisFacade>();
+
+//Indicator Service
+builder.Services.AddScoped<IndicatorService>();
+
+//Signal Service
+builder.Services.AddScoped<SignalService>();
 
 // Configuration EF Core + SQLite
 builder.Services.AddDbContext<StocksInvesthinkContext>((serviceProvider, options) =>

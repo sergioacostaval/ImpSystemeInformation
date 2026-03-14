@@ -40,11 +40,7 @@ namespace StocksInvesthink.Services
             // Créer automatiquement la relation UserStock si elle n'existe pas
             if (userStock == null)
             {
-                userStock = new UserStock
-                {
-                    UserId = userId,
-                    StockId = stockId
-                };
+                userStock = new UserStock(userId, stockId);
 
                 _db.UserStocks.Add(userStock);
                 await _db.SaveChangesAsync();
@@ -89,19 +85,15 @@ namespace StocksInvesthink.Services
                 long volume = long.Parse(parts[5]);
 
                 // Création d'un nouvel objet HistoricalPrice
-                prices.Add(new HistoricalPrice
-                {
-                    Date = date,
-                    OpenPrice = open,
-                    HighPrice = high,
-                    LowPrice = low,
-                    ClosePrice = close,
-                    Volume = volume,
-
-                    // Clés étrangères dynamiques selon l'utilisateur connecté
-                    UserId = userId,
-                    StockId = stockId
-                });
+                prices.Add(new HistoricalPrice(
+                    date,
+                    open,
+                    high,
+                    low,
+                    close,
+                    volume,
+                    userId,
+                    stockId));
             }
 
             // Ajout de toutes les lignes dans la base de données

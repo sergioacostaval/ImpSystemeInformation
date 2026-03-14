@@ -2,14 +2,31 @@
 {
     public class UserStock
     {
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int UserId { get; private set; }
+        public User User { get; private set; } = null!;
 
-        public int StockId { get; set; }
-        public Stock Stock { get; set; }
+        public int StockId { get; private set; }
+        public Stock Stock { get; private set; } = null!;
 
-        public ICollection<HistoricalPrice> HistoricalPrices { get; set; } = new List<HistoricalPrice>();
+        public ICollection<HistoricalPrice> HistoricalPrices { get; private set; } = new List<HistoricalPrice>();
+        public ICollection<IndicatorInstance> IndicatorInstances { get; private set; } = new List<IndicatorInstance>();
 
-        public ICollection<IndicatorInstance> IndicatorInstances { get; set; } = new List<IndicatorInstance>();
+        // Constructeur vide requis par EF Core
+        private UserStock()
+        {
+        }
+
+        // Constructeur principal pour relier un utilisateur à un stock
+        public UserStock(int userId, int stockId)
+        {
+            if (userId <= 0)
+                throw new ArgumentException("UserId invalide.");
+
+            if (stockId <= 0)
+                throw new ArgumentException("StockId invalide.");
+
+            UserId = userId;
+            StockId = stockId;
+        }
     }
 }
