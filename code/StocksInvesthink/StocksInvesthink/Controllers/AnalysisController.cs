@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using StocksInvesthink.Data;
 using StocksInvesthink.Services.Facade;
+using StocksInvesthink.ViewModels;
+using System.Security.Claims;
 
 namespace StocksInvesthink.Controllers
 {
@@ -43,6 +44,64 @@ namespace StocksInvesthink.Controllers
             TempData["Message"] = $"Import terminé : {rows} lignes ajoutées";
 
             return RedirectToAction("Import");
+        }
+
+        // methode pour afficher les resultats de analyse
+        public async Task<IActionResult> Results(int stockId)
+        {
+            // recuperer utilisateur connecte
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            // recuperer les prix historiques
+            var prices = await _db.HistoricalPrices
+                .Where(p => p.UserId == userId && p.StockId == stockId)
+                .OrderBy(p => p.Date)
+                .ToListAsync();
+
+            // recuperer toutes les valeurs indicateurs
+            var indicatorValues = await _db.IndicatorValues
+                .Include(v => v.IndicatorInstance)
+                .ThenInclude(i => i.IndicatorType)
+                .Where(v => v.IndicatorInstance.UserId == userId &&
+                            v.IndicatorInstance.StockId == stockId)
+                .ToListAsync();
+
+            // liste finale pour la vue
+            var results = new List<AnalysisResultViewModel>();
+
+            // construire chaque ligne du resultat
+            foreach (var price in prices)
+            {
+                // chercher SMA pour la date
+                var sma = indicatorValues
+                    .FirstOrDefault(v =>
+                        v.Date == price.Date &&
+                        v.IndicatorInstance.IndicatorType.Name == "SMA");
+
+                // chercher EMA pour la date
+                var ema = indicatorValues
+                    .FirstOrDefault(v =>
+                        v.Date == price.Date &&
+                        v.IndicatorInstance.IndicatorType.Name == "EMA");
+
+                // chercher RSI pour la date
+                var rsi = indicatorValues
+                    .FirstOrDefault(v =>
+                        v.Date == price.Date &&
+                        v.IndicatorInstance.IndicatorType.Name == "RSI");
+
+                // ajouter ligne resultat
+                results.Add(new AnalysisResultViewModel(
+                    price.Date,
+                    price.ClosePrice,
+                    sma?.Value,
+                    ema?.Value,
+                    rsi?.Value
+                ));
+            }
+
+            // envoyer resultat vers la vue
+            return View(results);
         }
     }
 }

@@ -1,0 +1,163 @@
+﻿<!-- librairie pour dessiner graphique -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!--Pour serializer avec Json et regler le problème des decimals-->
+@using System.Text.Json
+
+@model List<StocksInvesthink.ViewModels.AnalysisResultViewModel>
+
+<!-- tableau pour afficher les resultats -->
+<h2>Analysis Results</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Close</th>
+            <th>SMA</th>
+            <th>EMA</th>
+            <th>RSI</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- parcourir les resultats -->
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Date.ToShortDateString()</td>
+                <td>@r.ClosePrice</td>
+                <td>@r.Sma</td>
+                <td>@r.Ema</td>
+                <td>@r.Rsi</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- zone pour afficher graphique -->
+
+<!-- graphique prix et SMA -->
+<canvas id="smaChart" height="100"></canvas>
+
+<br />
+
+<!-- graphique prix et EMA -->
+<canvas id="emaChart" height="100"></canvas>
+
+<br />
+
+<!-- graphique prix et RSI -->
+<canvas id="rsiChart" height="100"></canvas>
+
+<script>
+    // preparation des donnees pour les graphiques
+    const labels = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Date.ToShortDateString())));
+    const closePrices = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.ClosePrice)));
+    const smaValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Sma)));
+    const emaValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Ema)));
+    const rsiValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Rsi)));
+
+    // graphique prix et SMA
+    const smaCtx = document.getElementById('smaChart');
+
+    new Chart(smaCtx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Close Price',
+                    data: closePrices,
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                {
+                    label: 'SMA',
+                    data: smaValues,
+                    borderWidth: 2,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+
+    // graphique prix et EMA
+    const emaCtx = document.getElementById('emaChart');
+
+    new Chart(emaCtx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Close Price',
+                    data: closePrices,
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                {
+                    label: 'EMA',
+                    data: emaValues,
+                    borderWidth: 2,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+
+    // graphique prix et RSI
+    const rsiCtx = document.getElementById('rsiChart');
+
+    new Chart(rsiCtx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Close Price',
+                    data: closePrices,
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                {
+                    label: 'RSI',
+                    data: rsiValues,
+                    borderWidth: 2,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            }
+        }
+    });
+</script>
