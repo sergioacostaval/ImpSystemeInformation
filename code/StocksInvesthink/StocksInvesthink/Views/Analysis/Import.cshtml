@@ -1,5 +1,5 @@
 ﻿@{
-    // Récupération de la liste des stocks envoyée par le controller
+    // recuperation de la liste des stocks envoyee par le controller
     var stocks = ViewBag.Stocks;
 }
 
@@ -7,17 +7,17 @@
 
 @if (TempData["Message"] != null)
 {
-    <!-- Message de confirmation après l'import -->
+    <!-- message de confirmation apres import -->
     <p style="color:green">@TempData["Message"]</p>
 }
 
-<!-- Formulaire pour importer un fichier CSV -->
+<!-- formulaire pour importer un fichier CSV -->
 <form method="post" enctype="multipart/form-data">
 
-    <!-- Sélection du stock -->
+    <!-- selection du stock -->
     <div>
         <label>Stock</label>
-        <select name="stockId">
+        <select id="stockId" name="stockId">
             @foreach (var s in stocks)
             {
                 <option value="@s.StockId">@s.Ticker</option>
@@ -27,14 +27,25 @@
 
     <br />
 
-    <!-- Sélection du fichier CSV -->
+    <!-- selection du fichier CSV -->
     <div>
         <input type="file" name="file" required />
     </div>
 
     <br />
 
-    <!-- Bouton pour lancer l'import -->
+    <!-- bouton pour lancer import -->
     <button type="submit">Importer</button>
 
+    <!-- bouton pour voir les resultats -->
+    <button type="button" onclick="goToResults()">Voir resultats</button>
+
 </form>
+
+<script>
+    // fonction pour ouvrir la page des resultats
+    function goToResults() {
+        const stockId = document.getElementById("stockId").value;
+        window.location.href = "/Analysis/Results?stockId=" + stockId;
+    }
+</script>

@@ -66,6 +66,15 @@ namespace StocksInvesthink.Controllers
                             v.IndicatorInstance.StockId == stockId)
                 .ToListAsync();
 
+            // recuperer tous les signaux pour ce user et ce stock
+            var signals = await _db.Signals
+                .Include(s => s.IndicatorValue)
+                .ThenInclude(v => v.IndicatorInstance)
+                .Where(s => s.IndicatorValue.IndicatorInstance.UserId == userId &&
+                            s.IndicatorValue.IndicatorInstance.StockId == stockId)
+                .OrderBy(s => s.Date)
+                .ToListAsync();
+
             // liste finale pour la vue
             var results = new List<AnalysisResultViewModel>();
 
@@ -90,13 +99,34 @@ namespace StocksInvesthink.Controllers
                         v.Date == price.Date &&
                         v.IndicatorInstance.IndicatorType.Name == "RSI");
 
+                // chercher signaux SMA pour la date
+                var smaSignal = signals
+                    .FirstOrDefault(s =>
+                        s.Date.Date == price.Date.Date &&
+                        (s.Type == "Buy" || s.Type == "Sell"));
+
+                // chercher signaux EMA pour la date
+                var emaSignal = signals
+                    .FirstOrDefault(s =>
+                        s.Date.Date == price.Date.Date &&
+                        (s.Type == "Buy EMA" || s.Type == "Sell EMA"));
+
+                // chercher signaux RSI pour la date
+                var rsiSignal = signals
+                    .FirstOrDefault(s =>
+                        s.Date.Date == price.Date.Date &&
+                        (s.Type == "Buy RSI" || s.Type == "Sell RSI"));
+
                 // ajouter ligne resultat
                 results.Add(new AnalysisResultViewModel(
                     price.Date,
                     price.ClosePrice,
                     sma?.Value,
                     ema?.Value,
-                    rsi?.Value
+                    rsi?.Value,
+                    smaSignal?.Type,
+                    emaSignal?.Type,
+                    rsiSignal?.Type
                 ));
             }
 

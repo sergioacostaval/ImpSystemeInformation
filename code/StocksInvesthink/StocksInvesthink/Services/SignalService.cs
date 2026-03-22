@@ -57,7 +57,7 @@ namespace StocksInvesthink.Services
             var smaByDate = smaValues
                 .GroupBy(v => v.Date.Date)
                 .ToDictionary(g => g.Key, g => g.OrderByDescending(x => x.IndicatorValueId).First());
-            
+
             for (int i = 1; i < prices.Count; i++)
             {
                 var previousPrice = prices[i - 1];
@@ -209,6 +209,7 @@ namespace StocksInvesthink.Services
                 return 0;
 
             var rsiValues = await _db.IndicatorValues
+                .Include(v => v.HistoricalPrice)
                 .Where(v => v.IndicatorInstanceId == rsiInstance.IndicatorInstanceId)
                 .OrderBy(v => v.Date)
                 .ToListAsync();

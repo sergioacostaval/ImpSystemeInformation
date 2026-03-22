@@ -9,6 +9,7 @@
 <!-- tableau pour afficher les resultats -->
 <h2>Analysis Results</h2>
 
+@* <!-- Pour le moment je ne veux voir la table, seulement les graphiques -->
 <table class="table">
     <thead>
         <tr>
@@ -34,6 +35,7 @@
         }
     </tbody>
 </table>
+*@
 
 <!-- zone pour afficher graphique -->
 
@@ -58,6 +60,47 @@
     const emaValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Ema)));
     const rsiValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Rsi)));
 
+    // preparation des signaux
+    const smaSignals = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.SmaSignal)));
+    const emaSignals = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.EmaSignal)));
+    const rsiSignals = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.RsiSignal)));
+
+    // creer dataset de signal buy / sell pour une graphique donnee
+    function buildSignalDatasets(signalArray, buyValue, sellValue) {
+        const buyData = signalArray.map((signal, index) => signal === buyValue ? closePrices[index] : null);
+        const sellData = signalArray.map((signal, index) => signal === sellValue ? closePrices[index] : null);
+
+        return {
+            buyDataset: {
+                label: buyValue,
+                type: 'line',
+                data: buyData,
+                showLine: false,
+                pointRadius: 7,
+                pointHoverRadius: 9,
+                pointStyle: 'triangle',
+                pointRotation: 0,
+                pointBackgroundColor: 'green',
+                pointBorderColor: 'green'
+            },
+            sellDataset: {
+                label: sellValue,
+                type: 'line',
+                data: sellData,
+                showLine: false,
+                pointRadius: 7,
+                pointHoverRadius: 9,
+                pointStyle: 'triangle',
+                pointRotation: 180,
+                pointBackgroundColor: 'red',
+                pointBorderColor: 'red'
+            }
+        };
+    }
+
+    // signaux pour graphique SMA
+    const smaSignalDatasets = buildSignalDatasets(smaSignals, 'Buy', 'Sell');
+
     // graphique prix et SMA
     const smaCtx = document.getElementById('smaChart');
 
@@ -77,7 +120,9 @@
                     data: smaValues,
                     borderWidth: 2,
                     pointRadius: 0
-                }
+                },
+                smaSignalDatasets.buyDataset,
+                smaSignalDatasets.sellDataset
             ]
         },
         options: {
@@ -93,6 +138,9 @@
             }
         }
     });
+
+    // signaux pour graphique EMA
+    const emaSignalDatasets = buildSignalDatasets(emaSignals, 'Buy EMA', 'Sell EMA');
 
     // graphique prix et EMA
     const emaCtx = document.getElementById('emaChart');
@@ -113,7 +161,9 @@
                     data: emaValues,
                     borderWidth: 2,
                     pointRadius: 0
-                }
+                },
+                emaSignalDatasets.buyDataset,
+                emaSignalDatasets.sellDataset
             ]
         },
         options: {
@@ -129,6 +179,9 @@
             }
         }
     });
+
+    // signaux pour graphique RSI
+    const rsiSignalDatasets = buildSignalDatasets(rsiSignals, 'Buy RSI', 'Sell RSI');
 
     // graphique prix et RSI
     const rsiCtx = document.getElementById('rsiChart');
@@ -149,7 +202,9 @@
                     data: rsiValues,
                     borderWidth: 2,
                     pointRadius: 0
-                }
+                },
+                rsiSignalDatasets.buyDataset,
+                rsiSignalDatasets.sellDataset
             ]
         },
         options: {
