@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using StocksInvesthink.Data;
 using StocksInvesthink.Services;
+using StocksInvesthink.Services.Commands;
 using StocksInvesthink.Services.Facade;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,9 @@ builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
 
 // Service d'import CSV
 builder.Services.AddScoped<CsvImportService>();
+
+// Command pattern
+builder.Services.AddScoped<AnalysisCommandInvoker>();
 
 // Enregistrement de la façade
 builder.Services.AddScoped<IStockAnalysisFacade, StockAnalysisFacade>();
