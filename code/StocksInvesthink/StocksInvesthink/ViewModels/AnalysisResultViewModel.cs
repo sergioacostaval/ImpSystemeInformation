@@ -1,6 +1,6 @@
 ﻿namespace StocksInvesthink.ViewModels
 {
-    // objet utilise pour afficher les resultats dans la vue
+    // Utilise pour afficher les resultats dans la vue
     public class AnalysisResultViewModel
     {
         public DateTime Date { get; private set; }
@@ -11,8 +11,12 @@
         public string? SmaSignal { get; private set; }
         public string? EmaSignal { get; private set; }
         public string? RsiSignal { get; private set; }
+        public string StockTicker { get; private set; }
+        public string StockName { get; private set; }
 
-        // constructeur pour initialiser les donnees
+        // recommandation globale basee sur les signaux recents (10 derniers jours)
+        public string? CombinedSignal { get; private set; }
+
         public AnalysisResultViewModel(
             DateTime date,
             decimal closePrice,
@@ -21,7 +25,10 @@
             decimal? rsi,
             string? smaSignal,
             string? emaSignal,
-            string? rsiSignal)
+            string? rsiSignal,
+            string stockTicker,
+            string stockName,
+            string? combinedSignal)
         {
             Date = date;
             ClosePrice = closePrice;
@@ -31,6 +38,9 @@
             SmaSignal = smaSignal;
             EmaSignal = emaSignal;
             RsiSignal = rsiSignal;
+            StockTicker = stockTicker;
+            StockName = stockName;
+            CombinedSignal = combinedSignal;
         }
     }
 }

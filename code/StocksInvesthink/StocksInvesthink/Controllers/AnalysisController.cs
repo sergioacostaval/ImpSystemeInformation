@@ -52,11 +52,24 @@ namespace StocksInvesthink.Controllers
             // recuperer utilisateur connecte
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
+            // recuperer le stock selectionne
+            var stock = await _db.Stocks.FirstOrDefaultAsync(s => s.StockId == stockId);
+
+            if (stock == null)
+            {
+                return NotFound();
+            }
+
             // recuperer les prix historiques
             var prices = await _db.HistoricalPrices
                 .Where(p => p.UserId == userId && p.StockId == stockId)
                 .OrderBy(p => p.Date)
                 .ToListAsync();
+
+            if (!prices.Any())
+            {
+                return View(new List<AnalysisResultViewModel>());
+            }
 
             // recuperer toutes les valeurs indicateurs
             var indicatorValues = await _db.IndicatorValues
@@ -74,6 +87,67 @@ namespace StocksInvesthink.Controllers
                             s.IndicatorValue.IndicatorInstance.StockId == stockId)
                 .OrderBy(s => s.Date)
                 .ToListAsync();
+
+            // date la plus recente de l'analyse
+            var latestAnalysisDate = prices.Last().Date.Date;
+
+            // fenetre de recence de 15 jours
+            var recentLimitDate = latestAnalysisDate.AddDays(-15);
+
+            // chercher la derniere signal recente pour chaque indicateur
+            var lastRecentSmaSignal = signals
+                .Where(s => s.Date.Date >= recentLimitDate &&
+                            s.Date.Date <= latestAnalysisDate &&
+                            (s.Type == "Buy" || s.Type == "Sell"))
+                .OrderByDescending(s => s.Date)
+                .FirstOrDefault();
+
+            var lastRecentEmaSignal = signals
+                .Where(s => s.Date.Date >= recentLimitDate &&
+                            s.Date.Date <= latestAnalysisDate &&
+                            (s.Type == "Buy EMA" || s.Type == "Sell EMA"))
+                .OrderByDescending(s => s.Date)
+                .FirstOrDefault();
+
+            var lastRecentRsiSignal = signals
+                .Where(s => s.Date.Date >= recentLimitDate &&
+                            s.Date.Date <= latestAnalysisDate &&
+                            (s.Type == "Buy RSI" || s.Type == "Sell RSI"))
+                .OrderByDescending(s => s.Date)
+                .FirstOrDefault();
+
+            // calculer score global
+            int score = 0;
+
+            // SMA
+            if (lastRecentSmaSignal?.Type.Contains("Buy") == true) score++;
+            if (lastRecentSmaSignal?.Type.Contains("Sell") == true) score--;
+
+            // EMA
+            if (lastRecentEmaSignal?.Type.Contains("Buy") == true) score++;
+            if (lastRecentEmaSignal?.Type.Contains("Sell") == true) score--;
+
+            // RSI
+            if (lastRecentRsiSignal?.Type.Contains("Buy") == true) score++;
+            if (lastRecentRsiSignal?.Type.Contains("Sell") == true) score--;
+
+            //temp
+            Console.WriteLine($"Latest analysis date: {latestAnalysisDate:yyyy-MM-dd}");
+            Console.WriteLine($"Recent limit date: {recentLimitDate:yyyy-MM-dd}");
+
+            Console.WriteLine($"Last SMA signal: {lastRecentSmaSignal?.Type} - {lastRecentSmaSignal?.Date:yyyy-MM-dd}");
+            Console.WriteLine($"Last EMA signal: {lastRecentEmaSignal?.Type} - {lastRecentEmaSignal?.Date:yyyy-MM-dd}");
+            Console.WriteLine($"Last RSI signal: {lastRecentRsiSignal?.Type} - {lastRecentRsiSignal?.Date:yyyy-MM-dd}");
+
+            Console.WriteLine($"Score: {score}");
+
+            // calcul de la recommandation globale
+            string combinedSignal =
+                score >= 3 ? "Strong Buy" :
+                score == 2 ? "Buy" :
+                score == -2 ? "Sell" :
+                score <= -3 ? "Strong Sell" :
+                "Hold";
 
             // liste finale pour la vue
             var results = new List<AnalysisResultViewModel>();
@@ -126,7 +200,10 @@ namespace StocksInvesthink.Controllers
                     rsi?.Value,
                     smaSignal?.Type,
                     emaSignal?.Type,
-                    rsiSignal?.Type
+                    rsiSignal?.Type,
+                    stock.Ticker,
+                    stock.Name,
+                    combinedSignal
                 ));
             }
 
