@@ -1,7 +1,7 @@
 ﻿<!-- librairie pour dessiner graphique -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Pour serializer avec Json et regler le probleme des decimals -->
+<!-- pour serializer avec Json et regler le probleme des decimals -->
 @using System.Text.Json
 
 @model List<StocksInvesthink.ViewModels.AnalysisResultViewModel>
@@ -14,86 +14,90 @@
     var endDate = Model.Any() ? Model.Last().Date.ToShortDateString() : "";
     var totalRows = Model.Count;
     var combinedSignal = Model.LastOrDefault()?.CombinedSignal ?? "Hold";
+
+    var signalClass =
+        combinedSignal == "Strong Buy" || combinedSignal == "Buy" ? "signal-buy" :
+        combinedSignal == "Strong Sell" || combinedSignal == "Sell" ? "signal-sell" :
+        "signal-hold";
 }
 
+<!-- resume principal -->
 <div class="container mb-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
 
-            <!-- titre principal -->
-            <h2 class="card-title mb-1">
-                @stockTicker
-            </h2>
+    <div class="app-card">
 
-            <h5 class="text-muted mb-4">
-                @stockName
-            </h5>
-
-            <!-- infos principales -->
-            <div class="row text-center">
-
-                <div class="col-md-3 mb-3">
-                    <div class="border rounded p-3 h-100">
-                        <h6 class="text-muted">Period</h6>
-                        <strong>@startDate - @endDate</strong>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="border rounded p-3 h-100">
-                        <h6 class="text-muted">Values</h6>
-                        <strong>@totalRows</strong>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="border rounded p-3 h-100">
-                        <h6 class="text-muted">Indicators</h6>
-                        <strong>SMA / EMA / RSI</strong>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <div class="border rounded p-3 h-100">
-                        <h6 class="text-muted">Recommendation</h6>
-
-                        <strong class="@(combinedSignal == "Strong Buy" || combinedSignal == "Buy" ? "text-success" :
-                                         combinedSignal == "Strong Sell" || combinedSignal == "Sell" ? "text-danger" :
-                                         "text-warning")">
-                            @combinedSignal
-                        </strong>
-
-                        <div class="small text-muted mt-2">
-                            Based on recent signals (last 15 days)
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <!-- titre principal -->
+        <div class="text-center mb-4">
+            <h2 class="mb-1">@stockTicker</h2>
+            <p class="text-secondary mb-0">@stockName</p>
         </div>
+
+        <!-- cartes resume -->
+        <div class="row text-center">
+
+            <div class="col-md-3 mb-3">
+                <div class="app-card h-100 p-3">
+                    <h6 class="text-secondary">Period</h6>
+                    <strong>@startDate - @endDate</strong>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="app-card h-100 p-3">
+                    <h6 class="text-secondary">Values</h6>
+                    <strong>@totalRows</strong>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="app-card h-100 p-3">
+                    <h6 class="text-secondary">Indicators</h6>
+                    <strong>SMA / EMA / RSI</strong>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="app-card h-100 p-3">
+                    <h6 class="text-secondary">Recommendation</h6>
+                    <strong class="@signalClass">@combinedSignal</strong>
+                    <div class="small text-secondary mt-2">
+                        Based on recent signals
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
+
 </div>
 
 @if (!Model.Any())
 {
+    <!-- message si aucune donnee -->
     <div class="alert alert-warning">
         No analysis data available for this stock.
     </div>
 }
 else
 {
-    <h4 style="margin-top:20px;">📈 Price & SMA (@stockTicker)</h4>
-    <canvas id="smaChart" height="100"></canvas>
+    <!-- graphique sma -->
+    <div class="app-card mb-4">
+        <h4 class="mb-3">Price and SMA (@stockTicker)</h4>
+        <canvas id="smaChart" height="90"></canvas>
+    </div>
 
-    <br />
+    <!-- graphique ema -->
+    <div class="app-card mb-4">
+        <h4 class="mb-3">Price and EMA (@stockTicker)</h4>
+        <canvas id="emaChart" height="90"></canvas>
+    </div>
 
-    <h4 style="margin-top:30px;">📉 Price & EMA (@stockTicker)</h4>
-    <canvas id="emaChart" height="100"></canvas>
-
-    <br />
-
-    <h4 style="margin-top:30px;">📊 Price & RSI (@stockTicker)</h4>
-    <canvas id="rsiChart" height="100"></canvas>
+    <!-- graphique rsi -->
+    <div class="app-card mb-4">
+        <h4 class="mb-3">Price and RSI (@stockTicker)</h4>
+        <canvas id="rsiChart" height="90"></canvas>
+    </div>
 
     <script>
         // preparation des donnees pour les graphiques
@@ -112,10 +116,16 @@ else
         const rsi30Line = labels.map(() => 30);
         const rsi70Line = labels.map(() => 70);
 
-        // creer dataset de signal buy / sell pour un graphique donne
-        function buildSignalDatasets(signalArray, buyValue, sellValue, yAxisId = 'y') {
-            const buyData = signalArray.map((signal, index) => signal === buyValue ? closePrices[index] : null);
-            const sellData = signalArray.map((signal, index) => signal === sellValue ? closePrices[index] : null);
+        // couleurs du theme
+        const chartTextColor = "#f8fafc";
+        const chartGridColor = "rgba(148, 163, 184, 0.15)";
+        const chartBuyColor = "#22c55e";
+        const chartSellColor = "#ef4444";
+
+        // creer dataset de signal buy sell pour un graphique donne
+        function buildSignalDatasets(signalArray, buyValue, sellValue, sourceData, yAxisId = 'y') {
+            const buyData = signalArray.map((signal, index) => signal === buyValue ? sourceData[index] : null);
+            const sellData = signalArray.map((signal, index) => signal === sellValue ? sourceData[index] : null);
 
             return {
                 buyDataset: {
@@ -128,8 +138,8 @@ else
                     pointHoverRadius: 9,
                     pointStyle: 'triangle',
                     pointRotation: 0,
-                    pointBackgroundColor: 'green',
-                    pointBorderColor: 'green'
+                    pointBackgroundColor: chartBuyColor,
+                    pointBorderColor: chartBuyColor
                 },
                 sellDataset: {
                     label: sellValue,
@@ -141,14 +151,56 @@ else
                     pointHoverRadius: 9,
                     pointStyle: 'triangle',
                     pointRotation: 180,
-                    pointBackgroundColor: 'red',
-                    pointBorderColor: 'red'
+                    pointBackgroundColor: chartSellColor,
+                    pointBorderColor: chartSellColor
+                }
+            };
+        }
+
+        // options communes
+        function getCommonOptions(titleText) {
+            return {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: chartTextColor
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: titleText,
+                        color: chartTextColor
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: chartTextColor
+                        },
+                        grid: {
+                            color: chartGridColor
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            color: chartTextColor
+                        },
+                        grid: {
+                            color: chartGridColor
+                        }
+                    }
                 }
             };
         }
 
         // signaux pour graphique SMA
-        const smaSignalDatasets = buildSignalDatasets(smaSignals, 'Buy', 'Sell');
+        const smaSignalDatasets = buildSignalDatasets(smaSignals, 'Buy', 'Sell', closePrices);
 
         // graphique prix et SMA
         const smaCtx = document.getElementById('smaChart');
@@ -162,40 +214,25 @@ else
                         label: 'Close Price',
                         data: closePrices,
                         borderWidth: 2,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        tension: 0.25
                     },
                     {
                         label: 'SMA',
                         data: smaValues,
                         borderWidth: 2,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        tension: 0.25
                     },
                     smaSignalDatasets.buyDataset,
                     smaSignalDatasets.sellDataset
                 ]
             },
-            options: {
-                responsive: true,
-                interaction: {
-                    mode: 'index',
-                    intersect: false
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Price vs SMA with Buy/Sell Signals'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false
-                    }
-                }
-            }
+            options: getCommonOptions('Price vs SMA with Buy and Sell Signals')
         });
 
         // signaux pour graphique EMA
-        const emaSignalDatasets = buildSignalDatasets(emaSignals, 'Buy EMA', 'Sell EMA');
+        const emaSignalDatasets = buildSignalDatasets(emaSignals, 'Buy EMA', 'Sell EMA', closePrices);
 
         // graphique prix et EMA
         const emaCtx = document.getElementById('emaChart');
@@ -209,40 +246,25 @@ else
                         label: 'Close Price',
                         data: closePrices,
                         borderWidth: 2,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        tension: 0.25
                     },
                     {
                         label: 'EMA',
                         data: emaValues,
                         borderWidth: 2,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        tension: 0.25
                     },
                     emaSignalDatasets.buyDataset,
                     emaSignalDatasets.sellDataset
                 ]
             },
-            options: {
-                responsive: true,
-                interaction: {
-                    mode: 'index',
-                    intersect: false
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Price vs EMA with Buy/Sell Signals'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false
-                    }
-                }
-            }
+            options: getCommonOptions('Price vs EMA with Buy and Sell Signals')
         });
 
         // signaux pour graphique RSI
-        const rsiSignalDatasets = buildSignalDatasets(rsiSignals, 'Buy RSI', 'Sell RSI', 'yPrice');
+        const rsiSignalDatasets = buildSignalDatasets(rsiSignals, 'Buy RSI', 'Sell RSI', closePrices, 'yPrice');
 
         // graphique prix et RSI avec double axe
         const rsiCtx = document.getElementById('rsiChart');
@@ -257,14 +279,16 @@ else
                         data: closePrices,
                         yAxisID: 'yPrice',
                         borderWidth: 2,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        tension: 0.25
                     },
                     {
                         label: 'RSI',
                         data: rsiValues,
                         yAxisID: 'yRsi',
                         borderWidth: 2,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        tension: 0.25
                     },
                     {
                         label: 'RSI 30',
@@ -293,34 +317,57 @@ else
                     intersect: false
                 },
                 plugins: {
+                    legend: {
+                        labels: {
+                            color: chartTextColor
+                        }
+                    },
                     title: {
                         display: true,
-                        text: 'Price & RSI with Thresholds (30 / 70)'
+                        text: 'Price and RSI with Thresholds',
+                        color: chartTextColor
                     }
                 },
                 scales: {
-                    // axe de gauche pour le prix
+                    x: {
+                        ticks: {
+                            color: chartTextColor
+                        },
+                        grid: {
+                            color: chartGridColor
+                        }
+                    },
                     yPrice: {
                         type: 'linear',
                         position: 'left',
                         beginAtZero: false,
+                        ticks: {
+                            color: chartTextColor
+                        },
+                        grid: {
+                            color: chartGridColor
+                        },
                         title: {
                             display: true,
-                            text: 'Price'
+                            text: 'Price',
+                            color: chartTextColor
                         }
                     },
-                    // axe de droite pour le RSI
                     yRsi: {
                         type: 'linear',
                         position: 'right',
                         min: 0,
                         max: 100,
+                        ticks: {
+                            color: chartTextColor
+                        },
                         grid: {
                             drawOnChartArea: false
                         },
                         title: {
                             display: true,
-                            text: 'RSI'
+                            text: 'RSI',
+                            color: chartTextColor
                         }
                     }
                 }

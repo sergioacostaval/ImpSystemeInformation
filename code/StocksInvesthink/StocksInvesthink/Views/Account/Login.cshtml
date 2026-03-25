@@ -2,42 +2,67 @@
     ViewData["Title"] = "Login";
 }
 
-<!--
-Page de connexion utilisateur - Permet à un utilisateur authentifié d'accéder aux fonctionnalités
--->
+<!-- page login -->
+<div class="auth-container">
 
-<h2>Connexion</h2>
+    <div class="auth-card">
 
-@if (ViewBag.Error != null)
-{
-    <!-- Message d'erreur si login invalide -->
-    <div style="color:red">
-        @ViewBag.Error
+        <!-- titre -->
+        <div class="text-center mb-4">
+            <h2 class="mb-2">Login</h2>
+            <p class="text-secondary">
+                Access your StocksInvesthink account
+            </p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <!-- message erreur -->
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Error
+            </div>
+        }
+
+        <!-- formulaire -->
+        <form method="post">
+
+            <!-- email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email"
+                       type="email"
+                       name="email"
+                       class="form-control"
+                       required />
+            </div>
+
+            <!-- mot de passe -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password"
+                       type="password"
+                       name="password"
+                       class="form-control"
+                       required />
+            </div>
+
+            <!-- bouton -->
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary-custom">
+                    Login
+                </button>
+            </div>
+
+        </form>
+
+        <!-- lien register -->
+        <div class="text-center mt-4">
+            <span class="text-secondary">Do not have an account?</span>
+            <a asp-controller="Account" asp-action="Register" class="ms-1">
+                Create one
+            </a>
+        </div>
+
     </div>
-}
 
-<form method="post">
-
-    <!-- Email utilisateur -->
-    <div>
-        <label>Email</label>
-        <input type="email" name="email" required />
-    </div>
-
-    <br />
-
-    <!-- Mot de passe -->
-    <div>
-        <label>Mot de passe</label>
-        <input type="password" name="password" required />
-    </div>
-
-    <br />
-
-    <button type="submit">Se connecter</button>
-
-</form>
-
-<br />
-
-<a href="/Account/Register">Créer un compte</a>
+</div>

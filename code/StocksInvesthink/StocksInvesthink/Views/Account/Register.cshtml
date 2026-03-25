@@ -2,58 +2,85 @@
     ViewData["Title"] = "Register";
 }
 
-<!--
-Page d'inscription utilisateur - Permet de créer un nouveau compte
--->
+<!-- page register -->
+<div class="auth-container">
 
-<h2>Créer un compte</h2>
+    <div class="auth-card">
 
-@if (ViewBag.Error != null)
-{
-    <!-- Affichage d'un message d'erreur -->
-    <div style="color:red">
-        @ViewBag.Error
+        <!-- titre -->
+        <div class="text-center mb-4">
+            <h2 class="mb-2">Create Account</h2>
+            <p class="text-secondary">
+                Join StocksInvesthink and start analyzing stocks
+            </p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <!-- message erreur -->
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.Error
+            </div>
+        }
+
+        <!-- formulaire -->
+        <form method="post">
+
+            <!-- nom -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name"
+                       type="text"
+                       name="name"
+                       class="form-control"
+                       required />
+            </div>
+
+            <!-- email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email"
+                       type="email"
+                       name="email"
+                       class="form-control"
+                       required />
+            </div>
+
+            <!-- mot de passe -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password"
+                       type="password"
+                       name="password"
+                       class="form-control"
+                       required />
+            </div>
+
+            <!-- regles mot de passe -->
+            <div class="mb-3">
+                <small class="text-secondary">
+                    Password must have at least 10 characters,
+                    one uppercase, one lowercase and one number.
+                </small>
+            </div>
+
+            <!-- bouton -->
+            <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-primary-custom">
+                    Create Account
+                </button>
+            </div>
+
+        </form>
+
+        <!-- lien login -->
+        <div class="text-center mt-4">
+            <span class="text-secondary">Already have an account?</span>
+            <a asp-controller="Account" asp-action="Login" class="ms-1">
+                Login
+            </a>
+        </div>
+
     </div>
-}
 
-<form method="post">
-
-    <!-- Nom de l'utilisateur -->
-    <div>
-        <label>Nom</label>
-        <input type="text" name="name" required />
-    </div>
-
-    <br />
-
-    <!-- Email utilisateur (identifiant unique) -->
-    <div>
-        <label>Email</label>
-        <input type="email" name="email" required />
-    </div>
-
-    <br />
-
-    <!-- Mot de passe -->
-    <div>
-        <label>Mot de passe</label>
-        <input type="password" name="password" required />
-    </div>
-
-    <br />
-
-    <!-- Information sur les règles du mot de passe -->
-    <small>
-        Le mot de passe doit contenir au minimum 10 caractères,
-        une majuscule, une minuscule et un chiffre.
-    </small>
-
-    <br /><br />
-
-    <button type="submit">Créer le compte</button>
-
-</form>
-
-<br />
-
-<a href="/Account/Login">Déjà un compte ? Se connecter</a>
+</div>
