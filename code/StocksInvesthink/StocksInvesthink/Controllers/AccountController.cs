@@ -19,10 +19,6 @@ namespace StocksInvesthink.Controllers
             _context = context;
         }
 
-        // -----------------------------
-        // REGISTER
-        // -----------------------------
-
         // Affiche la page d'inscription
         public IActionResult Register()
         {

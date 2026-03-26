@@ -11,7 +11,7 @@
     --hold: #f59e0b;
 }
 
-/* style global du body */
+/* body */
 body {
     background: linear-gradient(135deg, #0f172a, #111827);
     color: var(--text);
