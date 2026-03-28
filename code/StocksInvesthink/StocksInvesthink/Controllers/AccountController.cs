@@ -29,7 +29,6 @@ namespace StocksInvesthink.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string name, string email, string password)
         {
-            // Vérifier si l'email existe déjà
             bool emailExists = await _context.Users.AnyAsync(u => u.Email == email);
             if (emailExists)
             {
@@ -37,7 +36,6 @@ namespace StocksInvesthink.Controllers
                 return View();
             }
 
-            // Vérifier le mot de passe selon les règles demandées
             if (!IsValidPassword(password))
             {
                 ViewBag.Error = "Le mot de passe doit contenir au moins 10 caractères, une majuscule, une minuscule et un chiffre.";

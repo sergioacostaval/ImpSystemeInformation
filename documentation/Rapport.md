@@ -150,7 +150,6 @@ Definition of Done (DoD):
 - Fonctionnalité implémentée.
 - Aucun bug bloquant.
 - Testée manuellement (Tester : succès / email déjà utilisé / champs invalides)
-- Tests unitaires de base ajoutés.
 - Code poussé sur GitHub
 
 # US2 – Connexion et déconnexion
@@ -279,9 +278,7 @@ Conséquences
 
 ## 4. Mise à jour des diagrammes UML
 
-Les diagrammes ont été mis à jour afin de refléter l’architecture actuelle.
-
-Le diagramme de classes inclut maintenant :
-- les services (IndicatorService, SignalService, etc.)  
-- les méthodes principales  
+Les diagrammes de classes a été mis à jour afin de refléter l’architecture actuelle et inclut maintenant :
+- Tous les attributes et méthodes  
 - une meilleure séparation des responsabilités
+- Le fleches de rélation
