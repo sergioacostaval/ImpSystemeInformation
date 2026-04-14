@@ -33,7 +33,7 @@ namespace StocksInvesthink.Services
             if (smaType == null)
                 return 0;
 
-            // Créer l'instance de l'indicateur
+            // Créer l'instance de SMA
             var instance = new IndicatorInstance(period, smaType.IndicatorTypeId, userId, stockId);
 
             _db.IndicatorInstances.Add(instance);
@@ -140,7 +140,7 @@ namespace StocksInvesthink.Services
             if (rsiType == null)
                 return 0;
 
-            // Créer l'instance RSI
+            // Créer l'instance de RSI
             var instance = new IndicatorInstance(period, rsiType.IndicatorTypeId, userId, stockId);
 
             _db.IndicatorInstances.Add(instance);

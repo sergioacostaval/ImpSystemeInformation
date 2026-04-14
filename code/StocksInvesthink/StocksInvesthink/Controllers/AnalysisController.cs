@@ -15,7 +15,7 @@ namespace StocksInvesthink.Controllers
         private readonly StocksInvesthinkContext _db;
         private readonly IStockAnalysisFacade _analysisFacade;
 
-        // Injection du DbContext et de la façade d'analyse
+        // Inclusion de DbContext et de la façade d'analyse
         public AnalysisController(StocksInvesthinkContext db, IStockAnalysisFacade analysisFacade)
         {
             _db = db;
@@ -25,9 +25,7 @@ namespace StocksInvesthink.Controllers
         // Page pour importer un fichier CSV
         public async Task<IActionResult> Import()
         {
-            // Charger les stocks disponibles
             ViewBag.Stocks = await _db.Stocks.ToListAsync();
-
             return View();
         }
 
@@ -35,18 +33,14 @@ namespace StocksInvesthink.Controllers
         [HttpPost]
         public async Task<IActionResult> Import(IFormFile file, int stockId)
         {
-            // Récupération de l'utilisateur connecté depuis le cookie
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            // Lancer l'analyse via la façade
             int rows = await _analysisFacade.RunFullAnalysisAsync(file, userId, stockId);
 
             TempData["Message"] = $"Import terminé : {rows} lignes ajoutées";
-
             return RedirectToAction("Import");
         }
 
-        // methode pour afficher les resultats de analyse
+        // Afficher les resultats de analyse
         public async Task<IActionResult> Results(int stockId)
         {
             // recuperer utilisateur connecte
@@ -134,7 +128,6 @@ namespace StocksInvesthink.Controllers
             //temp
             Console.WriteLine($"Latest analysis date: {latestAnalysisDate:yyyy-MM-dd}");
             Console.WriteLine($"Recent limit date: {recentLimitDate:yyyy-MM-dd}");
-
             Console.WriteLine($"Last SMA signal: {lastRecentSmaSignal?.Type} - {lastRecentSmaSignal?.Date:yyyy-MM-dd}");
             Console.WriteLine($"Last EMA signal: {lastRecentEmaSignal?.Type} - {lastRecentEmaSignal?.Date:yyyy-MM-dd}");
             Console.WriteLine($"Last RSI signal: {lastRecentRsiSignal?.Type} - {lastRecentRsiSignal?.Date:yyyy-MM-dd}");
@@ -152,7 +145,6 @@ namespace StocksInvesthink.Controllers
             // liste finale pour la vue
             var results = new List<AnalysisResultViewModel>();
 
-            // construire chaque ligne du resultat
             foreach (var price in prices)
             {
                 // chercher SMA pour la date
@@ -207,7 +199,6 @@ namespace StocksInvesthink.Controllers
                 ));
             }
 
-            // envoyer resultat vers la vue
             return View(results);
         }
     }

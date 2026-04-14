@@ -4,7 +4,7 @@ using StocksInvesthink.Services.Commands;
 
 namespace StocksInvesthink.Services.Facade
 {
-    // Façade qui simplifie le processus complet d'analyse
+    // Façade qui simplifie le processus d'analyse
     public class StockAnalysisFacade : IStockAnalysisFacade
     {
         private readonly StocksInvesthinkContext _db;
@@ -25,7 +25,7 @@ namespace StocksInvesthink.Services.Facade
             _signalService = signalService;
         }
 
-        // Lance tout le processus d'analyse
+        // Lance le processus d'analyse (Herite de L'Interface)
         public async Task<int> RunFullAnalysisAsync(IFormFile file, int userId, int stockId)
         {
             // Créer les commandes du processus

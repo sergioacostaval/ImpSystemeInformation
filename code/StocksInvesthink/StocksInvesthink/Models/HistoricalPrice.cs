@@ -11,7 +11,6 @@
         public decimal ClosePrice { get; private set; }
         public long Volume { get; private set; }
 
-        // Clé composite vers UserStock
         public int UserId { get; private set; }
         public int StockId { get; private set; }
 
@@ -23,7 +22,7 @@
         {
         }
 
-        // Constructeur principal pour créer un prix historique valide
+        // Constructeur principal
         public HistoricalPrice(
             DateTime date,
             decimal openPrice,

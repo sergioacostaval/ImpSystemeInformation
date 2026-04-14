@@ -4,7 +4,7 @@ using StocksInvesthink.Models;
 
 namespace StocksInvesthink.Services
 {
-    // Service responsable de générer des signaux simples
+    // Service responsable de générer des signaux
     public class SignalService
     {
         private readonly StocksInvesthinkContext _db;
@@ -14,7 +14,7 @@ namespace StocksInvesthink.Services
             _db = db;
         }
 
-        // Générer les signaux Buy / Sell selon le croisement prix vs SMA
+        // Générer les signaux Buy / Sell selon Prix V.S. SMA
         public async Task<int> GenerateSignalsFromSmaAsync(int userId, int stockId, int period = 20)
         {
             // Récupérer le type SMA
@@ -24,7 +24,7 @@ namespace StocksInvesthink.Services
             if (smaType == null)
                 return 0;
 
-            // Récupérer l'instance SMA correspondante
+            // Récupérer l'instance SMA
             var smaInstance = await _db.IndicatorInstances
                 .Where(i => i.UserId == userId &&
                             i.StockId == stockId &&
@@ -53,7 +53,7 @@ namespace StocksInvesthink.Services
 
             var signals = new List<Signal>();
 
-            // Créer un dictionnaire Date -> SMA pour accès rapide
+            // Créer un dictionnaire Date: SMA pour accès rapide
             var smaByDate = smaValues
                 .GroupBy(v => v.Date.Date)
                 .ToDictionary(g => g.Key, g => g.OrderByDescending(x => x.IndicatorValueId).First());
@@ -70,7 +70,7 @@ namespace StocksInvesthink.Services
                 var previousSma = smaByDate[previousPrice.Date.Date];
                 var currentSma = smaByDate[currentPrice.Date.Date];
 
-                // Signal Buy : le prix croise vers le haut
+                // Signal Buy
                 if (previousPrice.ClosePrice <= previousSma.Value &&
                     currentPrice.ClosePrice > currentSma.Value)
                 {
@@ -82,7 +82,7 @@ namespace StocksInvesthink.Services
                     ));
                 }
 
-                // Signal Sell : le prix croise vers le bas
+                // Signal Sell
                 if (previousPrice.ClosePrice >= previousSma.Value &&
                     currentPrice.ClosePrice < currentSma.Value)
                 {
@@ -111,7 +111,7 @@ namespace StocksInvesthink.Services
             if (emaType == null)
                 return 0;
 
-            // Récupérer l'instance EMA correspondante
+            // Récupérer l'instance EMA
             var emaInstance = await _db.IndicatorInstances
                 .Where(i => i.UserId == userId &&
                             i.StockId == stockId &&
@@ -140,7 +140,7 @@ namespace StocksInvesthink.Services
 
             var signals = new List<Signal>();
 
-            // Créer un dictionnaire Date -> EMA pour accès rapide
+            // Créer un dictionnaire Date : EMA pour accès rapide
             var emaByDate = emaValues
                 .GroupBy(v => v.Date.Date)
                 .ToDictionary(g => g.Key, g => g.OrderByDescending(x => x.IndicatorValueId).First());
@@ -157,7 +157,7 @@ namespace StocksInvesthink.Services
                 var prevEma = emaByDate[prevPrice.Date.Date];
                 var currEma = emaByDate[currPrice.Date.Date];
 
-                // Signal Buy : le prix croise vers le haut
+                // Signal Buy
                 if (prevPrice.ClosePrice <= prevEma.Value &&
                     currPrice.ClosePrice > currEma.Value)
                 {
@@ -169,7 +169,7 @@ namespace StocksInvesthink.Services
                     ));
                 }
 
-                // Signal Sell : le prix croise vers le bas
+                // Signal Sell
                 if (prevPrice.ClosePrice >= prevEma.Value &&
                     currPrice.ClosePrice < currEma.Value)
                 {

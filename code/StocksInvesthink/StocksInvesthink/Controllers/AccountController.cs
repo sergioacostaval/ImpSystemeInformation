@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace StocksInvesthink.Controllers
 {
     public class AccountController : Controller
@@ -42,10 +43,7 @@ namespace StocksInvesthink.Controllers
                 return View();
             }
 
-            // Hacher le mot de passe avant sauvegarde
             string passwordHash = HashPassword(password);
-
-            // Créer un nouvel utilisateur avec encapsulation
             var user = new User(name, email, passwordHash);
 
             _context.Users.Add(user);
@@ -54,10 +52,7 @@ namespace StocksInvesthink.Controllers
             return RedirectToAction("Login");
         }
 
-        // -----------------------------
         // LOGIN
-        // -----------------------------
-
         // Affiche la page de connexion
         public IActionResult Login()
         {
@@ -70,14 +65,12 @@ namespace StocksInvesthink.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
-            // Vérification de l'utilisateur et du mot de passe
             if (user == null || user.PasswordHash != HashPassword(password))
             {
                 ViewBag.Error = "Email ou mot de passe incorrect.";
                 return View();
             }
 
-            // Création des claims pour l'utilisateur connecté
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
@@ -89,11 +82,9 @@ namespace StocksInvesthink.Controllers
 
             var authProperties = new AuthenticationProperties
             {
-                // Permet de garder la session active
                 IsPersistent = true
             };
 
-            // Création du cookie d'authentification
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
@@ -102,10 +93,7 @@ namespace StocksInvesthink.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // -----------------------------
         // LOGOUT
-        // -----------------------------
-
         // Déconnexion de l'utilisateur
         public async Task<IActionResult> Logout()
         {
@@ -114,12 +102,10 @@ namespace StocksInvesthink.Controllers
             return RedirectToAction("Login");
         }
 
-        // -----------------------------
-        // MÉTHODES UTILITAIRES
-        // -----------------------------
+        // MÉTHODES NECESSAIRES
 
         // Fonction pour hacher un mot de passe avec SHA256
-        private string HashPassword(string password)
+        public string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {

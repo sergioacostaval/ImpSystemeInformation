@@ -15,7 +15,7 @@ public class User
     {
     }
 
-    // Constructeur principal pour créer un utilisateur valide
+    // Constructeur principal
     public User(string name, string email, string passwordHash)
     {
         SetName(name);
@@ -41,11 +41,11 @@ public class User
         Email = email.Trim().ToLower();
     }
 
-    // Modifier le mot de passe haché
+    // Modifier le mot de passe
     public void SetPasswordHash(string passwordHash)
     {
         if (string.IsNullOrWhiteSpace(passwordHash))
-            throw new ArgumentException("Le mot de passe haché est obligatoire.");
+            throw new ArgumentException("Le mot de passe est obligatoire.");
 
         PasswordHash = passwordHash;
     }

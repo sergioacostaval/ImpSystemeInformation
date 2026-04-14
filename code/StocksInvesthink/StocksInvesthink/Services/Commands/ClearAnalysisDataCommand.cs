@@ -20,7 +20,7 @@ namespace StocksInvesthink.Services.Commands
 
         public async Task ExecuteAsync()
         {
-            // Récupérer les anciennes instances d'indicateurs du user et du stock
+            // Récupérer les instances d'indicateurs du user et du stock dans la BD
             var indicatorInstances = await _db.IndicatorInstances
                 .Where(i => i.UserId == _userId && i.StockId == _stockId)
                 .ToListAsync();
@@ -31,7 +31,7 @@ namespace StocksInvesthink.Services.Commands
                     .Select(i => i.IndicatorInstanceId)
                     .ToList();
 
-                // Récupérer les anciennes valeurs d'indicateurs liées aux instances
+                // Récupérer les valeurs d'indicateurs dans la BD
                 var indicatorValues = await _db.IndicatorValues
                     .Where(v => instanceIds.Contains(v.IndicatorInstanceId))
                     .ToListAsync();

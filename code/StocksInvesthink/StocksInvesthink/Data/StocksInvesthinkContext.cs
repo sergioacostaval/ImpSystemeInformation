@@ -39,24 +39,20 @@ namespace StocksInvesthink.Data
                 .WithMany(s => s.UserStocks)
                 .HasForeignKey(us => us.StockId);
 
-            // UserStock -> HistoricalPrices
-            // Cette relation utilise une clé étrangère composite :
-            // HistoricalPrice(UserId, StockId) -> UserStock(UserId, StockId)
+            // Relation UserStock -> HistoricalPrices
             modelBuilder.Entity<UserStock>()
                 .HasMany(us => us.HistoricalPrices)
                 .WithOne(h => h.UserStock)
                 .HasForeignKey(h => new { h.UserId, h.StockId })
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // HistoricalPrice relation with UserStock (composite FK)
-            // Configuration explicite pour s'assurer qu'EF Core utilise bien
-            // la relation composite définie par UserId + StockId
+            // HistoricalPrices -> UserStock
             modelBuilder.Entity<HistoricalPrice>()
                 .HasOne(h => h.UserStock)
                 .WithMany(us => us.HistoricalPrices)
                 .HasForeignKey(h => new { h.UserId, h.StockId });
 
-            // IndicatorInstance relation with UserStock (composite FK)
+            // IndicatorInstance -> UserStock
             modelBuilder.Entity<IndicatorInstance>()
                 .HasOne(ii => ii.UserStock)
                 .WithMany(us => us.IndicatorInstances)
@@ -86,13 +82,13 @@ namespace StocksInvesthink.Data
                 .WithMany(iv => iv.Signals)
                 .HasForeignKey(s => s.IndicatorValueId);
 
-            // UserPreference -> User (One-to-One)
+            // UserPreference -> User
             modelBuilder.Entity<UserPreference>()
                 .HasOne(up => up.User)
                 .WithOne(u => u.UserPreference)
                 .HasForeignKey<UserPreference>(up => up.UserId);
 
-            // User -> Email Unique
+            // User Email Is Unique
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();

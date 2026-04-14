@@ -16,7 +16,7 @@
         {
         }
 
-        // Constructeur principal pour relier un utilisateur à un stock
+        // Constructeur principal
         public UserStock(int userId, int stockId)
         {
             if (userId <= 0)

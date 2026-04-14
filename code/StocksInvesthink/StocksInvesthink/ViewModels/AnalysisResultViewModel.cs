@@ -1,6 +1,6 @@
 ﻿namespace StocksInvesthink.ViewModels
 {
-    // Utilise pour afficher les resultats dans la vue
+    // Utilise pour Organiser et afficher les resultats dans la vue
     public class AnalysisResultViewModel
     {
         public DateTime Date { get; private set; }
@@ -14,7 +14,7 @@
         public string StockTicker { get; private set; }
         public string StockName { get; private set; }
 
-        // recommandation globale basee sur les signaux recents (10 derniers jours)
+        // recommandation globale basee sur les signaux recents (X derniers jours)
         public string? CombinedSignal { get; private set; }
 
         public AnalysisResultViewModel(

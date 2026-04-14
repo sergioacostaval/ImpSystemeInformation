@@ -5,45 +5,27 @@ using StocksInvesthink.Services;
 using StocksInvesthink.Services.Commands;
 using StocksInvesthink.Services.Facade;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); //main
 
-// ----------------------------
 // Add services to the container
-// ----------------------------
 
 builder.Services.AddControllersWithViews();
 
-// Configuration de l'authentification par cookies
-// Ce mécanisme permet de garder la session de l'utilisateur après connexion
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        // Page vers laquelle rediriger si l'utilisateur n'est pas connecté
         options.LoginPath = "/Account/Login";
 
-        // Durée de validité du cookie d'authentification
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
 
-// Singleton DatabaseManager
 builder.Services.AddSingleton<IDatabaseManager, DatabaseManager>();
-
-// Service d'import CSV
 builder.Services.AddScoped<CsvImportService>();
-
-// Command pattern
 builder.Services.AddScoped<AnalysisCommandInvoker>();
-
-// Enregistrement de la façade
 builder.Services.AddScoped<IStockAnalysisFacade, StockAnalysisFacade>();
-
-//Indicator Service
 builder.Services.AddScoped<IndicatorService>();
-
-//Signal Service
 builder.Services.AddScoped<SignalService>();
 
-// Configuration EF Core + SQLite
 builder.Services.AddDbContext<StocksInvesthinkContext>((serviceProvider, options) =>
 {
     var dbManager = serviceProvider.GetRequiredService<IDatabaseManager>();
@@ -52,9 +34,7 @@ builder.Services.AddDbContext<StocksInvesthinkContext>((serviceProvider, options
 
 var app = builder.Build();
 
-// ----------------------------
 // Configure HTTP request pipeline
-// ----------------------------
 
 if (!app.Environment.IsDevelopment())
 {
@@ -64,13 +44,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
-// Middleware responsable de vérifier l'identité de l'utilisateur
-// Il lit le cookie et authentifie l'utilisateur pour chaque requête
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(
