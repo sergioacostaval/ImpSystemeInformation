@@ -53,13 +53,12 @@ namespace StocksInvesthink.Controllers
         }
 
         // LOGIN
-        // Affiche la page de connexion
         public IActionResult Login()
         {
             return View();
         }
 
-        // Traitement du formulaire de connexion
+        // Formulaire de connexion
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
@@ -94,7 +93,6 @@ namespace StocksInvesthink.Controllers
         }
 
         // LOGOUT
-        // Déconnexion de l'utilisateur
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
