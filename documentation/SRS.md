@@ -55,25 +55,24 @@ Développeurs : Étudiants passionnés par le Trading
 ---
 
 ## 4. Exigences fonctionnelles (FR)
-- **FR-1 :** Le système doit permettre d’obtenir des données historiques de prix d’actions à partir d’une source locale (.CSV) ou d’une source web fiable (Yahoo Finance). Pour le CSV, le format attendu: (colonnes Date/Open/High/Low/Close/Volume).
+- **FR-1 :** Le système doit permettre d’obtenir des données historiques de prix d’actions à partir d’une source locale (.CSV). Le format attendu: (colonnes Date/Open/High/Low/Close/Volume).
 - **FR-2 :** Le système doit analyser l’évolution des prix des actions dans le temps.
-- **FR-3 :** Le système doit calculer des indicateurs techniques simples (Initialement on propose SMA, EMA et RSI). Périodes par défaut SMA(20), EMA(20), RSI(14).
+- **FR-3 :** Le système doit calculer des indicateurs techniques simples (SMA, EMA et RSI). Périodes par défaut SMA(20), EMA(20), RSI(14).
 - **FR-4 :** Le système doit générer des signaux indicatifs basés sur l’analyse technique, afin d’illustrer des situations potentielles d’achat ou de vente. Des signaux éducatifs, ils ne sont pas des conseils d'achat ou de vente, car ils servent seulement pour illustrer et enseigner les utilisateurs sur les indicateurs.
 - **FR-5 :** Le système doit afficher les prix, les indicateurs et les signaux sous forme de graphiques simples.
-- **FR-6 :** Le système doit produire un rapport récapitulatif des résultats de l’analyse.
-- **FR-7 :** Le système doit permettre à un utilisateur de créer un compte avec un identifiant (email) et un mot de passe. Pour les regles de mot de passe il faut avoir au minimum 10 caractères où il y a au moins 1 lettre majuscule, 1 lettre minuscule et 1 chiffre.
-- **FR-8 :** Le système doit permettre à un utilisateur authentifié de se connecter et de se déconnecter. Si l'utilisateur oublie le mot de passe, le système doit permettre à l'utilisateur de récuperé son compte avec la création d'un nouveau mot de passe.
-- **FR-9 :** Le système doit restreindre l’accès aux fonctionnalités de l’application aux utilisateurs authentifiés.
-- **FR-10 :** Le système doit gèrer les erreurs adequatement.
+- **FR-6 :** Le système doit permettre à un utilisateur de créer un compte avec un identifiant (email) et un mot de passe. Pour les regles de mot de passe il faut avoir au minimum 10 caractères où il y a au moins 1 lettre majuscule, 1 lettre minuscule et 1 chiffre.
+- **FR-7 :** Le système doit permettre à un utilisateur authentifié de se connecter et de se déconnecter.
+- **FR-8 :** Le système doit restreindre l’accès aux fonctionnalités de l’application aux utilisateurs authentifiés.
+- **FR-9 :** Le système doit gèrer les erreurs adequatement.
 
 
 ---
 
 ## 5. Exigences non fonctionnelles (NFR)
 > Performance / sécurité / disponibilité / UX / maintenabilité…
-- **NFR-1 (Performance) :** Le système doit analyser un fichier CSV standard en moins de 2 secondes sur un ordinateur personnel.
+- **NFR-1 (Performance) :** Le système doit analyser un fichier CSV standard en moins de 3 secondes sur un ordinateur personnel.
 - **NFR-2 (Sécurité) :** Le système doit assurer une gestion sécurisée des comptes utilisateurs (hachage des mots de passe) et ne doit pas stocker de données personnelles sensibles.
-- **NFR-3 (Disponibilité) :** L’application doit fonctionner correctement tant que l’utilisateur a une connexion internet et les données sont disponibles, au moins que l'utilisateur travaille seulement avec le CSV.
+- **NFR-3 (Disponibilité) :** L’application doit fonctionner correctement tant que l’utilisateur a une connexion internet et les données sont disponibles.
 - **NFR-4 (UX) :** L’interface doit être simple et compréhensible pour un utilisateur débutant. Il ne doit pas avoir trop des fonctionnalitées, mais se limiter aux exigences minimales.
 - **NFR-5 (Maintenabilité) :** Le code doit être propre (OOP, Patrons de conception, structure en couches, commentaires) et bien documentée pour faciliter la maintenance et l’évolution du projet.
 
@@ -86,13 +85,13 @@ Développeurs : Étudiants passionnés par le Trading
   - Phase I – Lancement du projet : 8 janvier au 25 Janvier 2026  
   - Phase II – Analyse, exigences et premiers patrons: 26 janvier au 22 février 2026 
   - Phase III – Raffinement architectural et conception avancée : 23 février au 22 mars 2026
-  - Phase IV – Intégration, optimisation et robustesse : 23 mars au 19 Avril 2026
+  - Phase IV – Intégration, optimisation et robustesse : 23 mars au 28 Avril 2026
 - **C-4 (Outils) :** 
   - Git pour le versioning du code
   - GitHub pour le dépôt
   - Draw.io pour le UML
   - Visual Studio / VS Code pour le codage
-- **C-5 (Données) :** Les données historiques des stocks proviendront soit de fichiers CSV fournis, soit de sources web fiables ; aucune donnée sensible ne sera collectée.
+- **C-5 (Données) :** Les données historiques des stocks proviendront de fichiers CSV fournis. Aucune donnée sensible ne sera collectée.
 
 ---
 
@@ -160,7 +159,7 @@ Descripción: Représente un utilisateur authentifié de l’application. Un com
 ---
 
 ## 9. Critères d’acceptation globaux (Definition of Done – mini)
-- [ ] Toutes les fonctionnalités décrites sont implémentées, fonctionnelles et sont couvertes par des tests minimaux (Parsing .CSV et Calculs d'indicateurs)
+- [ ] Toutes les fonctionnalités décrites sont implémentées, fonctionnelles et sont couvertes par des tests unitaires minimaux.
 - [ ] Les erreurs courantes (fichiers invalides, données manquantes, erreurs de calcul) sont gérées correctement.
 - [ ] L’interface utilisateur permet une utilisation simple et compréhensible pour un utilisateur débutant.
 - [ ] La documentation technique et fonctionnelle est à jour (UML, description des choix techniques).

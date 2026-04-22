@@ -1,12 +1,13 @@
-﻿<!-- librairie pour dessiner graphique -->
+﻿<!-- librairie pour dessign graphique -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- pour serializer avec Json et regler le probleme des decimals -->
+<!-- pour serializer avec Json -->
 @using System.Text.Json
 
 @model List<StocksInvesthink.ViewModels.AnalysisResultViewModel>
 
 @{
+    // donnees principales du stock
     var firstItem = Model.FirstOrDefault();
     var stockTicker = firstItem?.StockTicker ?? "";
     var stockName = firstItem?.StockName ?? "";
@@ -15,6 +16,7 @@
     var totalRows = Model.Count;
     var combinedSignal = Model.LastOrDefault()?.CombinedSignal ?? "Hold";
 
+    // Signal selon la recommandation finale
     var signalClass =
         combinedSignal == "Strong Buy" || combinedSignal == "Buy" ? "signal-buy" :
         combinedSignal == "Strong Sell" || combinedSignal == "Sell" ? "signal-sell" :
@@ -81,33 +83,37 @@
 }
 else
 {
-    <!-- graphique sma -->
+    <!-- espace pour graphique sma -->
     <div class="app-card mb-4">
         <h4 class="mb-3">Price and SMA (@stockTicker)</h4>
         <canvas id="smaChart" height="90"></canvas>
     </div>
 
-    <!-- graphique ema -->
+    <!-- espace pour graphique ema -->
     <div class="app-card mb-4">
         <h4 class="mb-3">Price and EMA (@stockTicker)</h4>
         <canvas id="emaChart" height="90"></canvas>
     </div>
 
-    <!-- graphique rsi -->
+    <!-- espace pour graphique rsi -->
     <div class="app-card mb-4">
         <h4 class="mb-3">Price and RSI (@stockTicker)</h4>
         <canvas id="rsiChart" height="90"></canvas>
     </div>
 
     <script>
-        // preparation des donnees pour les graphiques
+        // transformation des donnees C# en listes pour graphiquer avec Chart.js
+        
+        // labels contient les dates pour l axe horizontal
         const labels = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Date.ToShortDateString())));
+        
+        // valeurs numeriques affichees dans les graphiques
         const closePrices = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.ClosePrice)));
         const smaValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Sma)));
         const emaValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Ema)));
         const rsiValues = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.Rsi)));
 
-        // preparation des signaux
+        // signaux generes par chaque indicateur
         const smaSignals = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.SmaSignal)));
         const emaSignals = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.EmaSignal)));
         const rsiSignals = @Html.Raw(JsonSerializer.Serialize(Model.Select(r => r.RsiSignal)));
@@ -122,7 +128,7 @@ else
         const chartBuyColor = "#22c55e";
         const chartSellColor = "#ef4444";
 
-        // creer dataset de signal buy sell pour un graphique donne
+        // cette fonction prepare les fleches verts et rouges des signaux
         function buildSignalDatasets(signalArray, buyValue, sellValue, sourceData, yAxisId = 'y') {
             const buyData = signalArray.map((signal, index) => signal === buyValue ? sourceData[index] : null);
             const sellData = signalArray.map((signal, index) => signal === sellValue ? sourceData[index] : null);
@@ -157,7 +163,7 @@ else
             };
         }
 
-        // options communes
+        // options reutilisees par les graphiques
         function getCommonOptions(titleText) {
             return {
                 responsive: true,
@@ -199,10 +205,9 @@ else
             };
         }
 
-        // signaux pour graphique SMA
+        // creation du graphique SMA
         const smaSignalDatasets = buildSignalDatasets(smaSignals, 'Buy', 'Sell', closePrices);
 
-        // graphique prix et SMA
         const smaCtx = document.getElementById('smaChart');
 
         new Chart(smaCtx, {
@@ -231,10 +236,10 @@ else
             options: getCommonOptions('Price vs SMA with Buy and Sell Signals')
         });
 
-        // signaux pour graphique EMA
+        // creation du graphique EMA
+        // il utilise la meme structure que le graphique SMA
         const emaSignalDatasets = buildSignalDatasets(emaSignals, 'Buy EMA', 'Sell EMA', closePrices);
 
-        // graphique prix et EMA
         const emaCtx = document.getElementById('emaChart');
 
         new Chart(emaCtx, {
@@ -263,7 +268,7 @@ else
             options: getCommonOptions('Price vs EMA with Buy and Sell Signals')
         });
 
-        // signaux pour graphique RSI
+        // creation du graphique RSI
         const rsiSignalDatasets = buildSignalDatasets(rsiSignals, 'Buy RSI', 'Sell RSI', closePrices, 'yPrice');
 
         // graphique prix et RSI avec double axe

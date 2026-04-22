@@ -1,6 +1,6 @@
 # Rapport Final
 # Projet: Stocks Investhink
-**Équipe :** Seydina Mouhammad Sylla / Chatib Ismail / Sergio Acosta  
+**Équipe :** Sergio Acosta / Seydina Mouhammad Sylla / Chatib Ismail  
 **Date :** 2026-04-19
 **Version :** v3.0
 
@@ -468,7 +468,7 @@ Les diagrammes ont été réalisés avec **Draw.io**.
 
 ## 4.2 Diagramme de cas d’utilisation Haut niveau
 
-![Diagramme de cas d'utilisation](Diagramme_Cas_dUtilisation.png)
+![Diagramme de cas d'utilisation](UML/Diagramme_Cas_dUtilisation_V2.png)
 
 Le diagramme de cas d’utilisation montre les interactions entre l’utilisateur et le système.
 
@@ -765,11 +765,77 @@ Ce mécanisme permet :
 
 ---
 
-# 6. Execution du Projet
+# 6. Développement des tests
+
+Des tests unitaires ont été développés afin de valider principalement le bon fonctionnement de la gestion des utilisateurs et l’authentification.
+
+Les tests utilisent une base de données en mémoire pour simuler le comportement réel sans affecter la base de données principale. Le framework utilisé est **NUnit** et ils sont regroupés dans :
+
+- projet : `NUTest`  
+- fichier : `UnitTest1.cs`  
+
+avec la structure suivante, commen on a apris pendant le cours :
+
+- Arrange  
+- Act  
+- Assert  
+
+À continuation on décrit les Tests implémentés:
+
+## 6.1 Test de création d’utilisateur
+
+Ce test vérifie que la création d’un utilisateur fonctionne correctement.
+
+Arrange:
+- on cree une base de données en mémoire pour simuler le comportement réel sans affecter la base de données principale
+- un utilisateur est ajouté dans une base de données en mémoire  
+
+Act:
+- les données sont sauvegardées  
+- une requête est effectuée pour récupérer l’utilisateur  
+
+Asset :
+- l’utilisateur existe dans la base de données  
+- l’email correspond à celui attendu  
+
+---
+
+## 6.2 Test de hash du mot de passe
+
+Ce test vérifie la cohérence de la méthode de hash utilisée dans `AccountController`.
+
+Arrange:
+- un password est crée 
+
+Act:
+- le même password est hashé deux fois  
+
+Asset :
+- les deux résultats doivent être identiques  
+
+---
+
+## 6.3 Test d’authentification utilisateur
+
+Ce test valide le processus d’authentification.
+
+Arrange:
+- on cree une base de données en mémoire pour simuler le comportement réel sans affecter la base de données principale
+- un utilisateur est créé avec un mot de passe ha shé  
+- il est enregistré dans la base de données en mémoire  
+
+Act:
+- une vérification est faite avec les mêmes identifiants  
+
+Asset :
+- le système reconnaît correctement l’utilisateur  
+
+---
+# 7. Execution du Projet
 
 Cette section présente des captures d’écran de l’application en cours d’exécution. Elles permettent d’illustrer les principales fonctionnalités du système et le parcours utilisateur.
 
-# 6.1 Page d'Accueil (Home)
+# 7.1 Page d'Accueil (Home)
 
 ![Accueil](Screenshots/Accueil.png)
 
@@ -780,7 +846,7 @@ La page d’accueil est le point d’entrée de l’application et on l'a fait v
 
 ---
 
-## 6.2 Création d’utilisateur (Register)
+## 7.2 Création d’utilisateur (Register)
 
 ![Création utilisateur](Screenshots/CreationUtilisateur.png)
 
@@ -795,7 +861,7 @@ Cette étape est nécessaire pour accéder aux fonctionnalités de l’applicati
 
 ---
 
-## 6.3 Connexion (Login)
+## 7.3 Connexion (Login)
 
 ![Login](Screenshots/Login.png)
 
@@ -805,7 +871,7 @@ Après authentification l’utilisateur peut accéder aux fonctionnalités princ
 
 ---
 
-## 6.4 Importation du fichier CSV
+## 7.4 Importation du fichier CSV
 
 ![Import CSV](Screenshots/ImportFichier.png)
 
@@ -821,7 +887,7 @@ Une fois le fichier importé, l’analyse peut être lancée.
 
 ---
 
-## 6.5 Résultats et graphiques
+## 7.5 Résultats et graphiques
 
 Cette page affiche les résultats de l’analyse.
 
@@ -846,6 +912,9 @@ Elle présente :
 Les graphiques permettent de visualiser les tendances de manière claire et intuitive.
 
 ---
+
+
+
 
 
 
