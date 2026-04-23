@@ -1,7 +1,7 @@
 # Cahier des charges (SRS léger) — <Stocks Investhink>
-**Équipe :** Seydina Mouhammad Sylla / Chatib Ismail / Sergio Acosta  
+**Équipe :** Sergio Acosta / Seydina Mouhammad Sylla / Chatib Ismail  
 **Date :** 2026-01-18  
-**Version :** v1.0
+**Version :** v2.0
 
 ---
 
