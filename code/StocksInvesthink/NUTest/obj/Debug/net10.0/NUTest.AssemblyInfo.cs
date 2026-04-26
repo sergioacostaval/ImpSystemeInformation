@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NUTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7b1cec2a891ff605ece3710e79f9be64e2a805f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4bf282bc752d78016aa67691f1dbcde284e75938")]
 [assembly: System.Reflection.AssemblyProductAttribute("NUTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NUTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

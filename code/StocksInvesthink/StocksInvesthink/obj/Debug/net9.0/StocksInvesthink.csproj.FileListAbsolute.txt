@@ -148,6 +148,7 @@ C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\Stocks
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\scopedcss\projectbundle\StocksInvesthink.bundle.scp.css
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\1jr61rll5g-{0}-ps1q11jbif-ps1q11jbif.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\sue4epszki-{0}-23xkkig7ui-23xkkig7ui.gz
+C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ugrl0rjhqr-{0}-ibawk3r0lk-ibawk3r0lk.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\adf1azdchi-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\e19qqyqeuu-{0}-bqjiyaj88i-bqjiyaj88i.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ou1bm23fu3-{0}-c2jlpeoesf-c2jlpeoesf.gz
@@ -208,7 +209,6 @@ C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\Stocks
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\t1isxtii0u-{0}-muycvpuwrr-muycvpuwrr.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\xhz2oa20mx-{0}-87fc7y1x7t-87fc7y1x7t.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\juhpcwf4l9-{0}-mlv21k5csn-mlv21k5csn.gz
-C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ugrl0rjhqr-{0}-ibawk3r0lk-ibawk3r0lk.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\4paq5on3nt-{0}-wesu9ks5ie-wesu9ks5ie.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ldo9z0ortz-{0}-wesu9ks5ie-wesu9ks5ie.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\staticwebassets.build.json

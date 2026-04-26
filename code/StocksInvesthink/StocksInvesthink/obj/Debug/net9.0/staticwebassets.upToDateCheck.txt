@@ -1,5 +1,6 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\js\results-charts.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -61,9 +62,9 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\js\results-charts.js
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\css\site.css
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\favicon.ico
+C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\js\results-charts.js
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\js\site.js
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -124,4 +125,3 @@ C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\Stocks
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\lib\jquery\LICENSE.txt
-C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\wwwroot\js\results-charts.js
