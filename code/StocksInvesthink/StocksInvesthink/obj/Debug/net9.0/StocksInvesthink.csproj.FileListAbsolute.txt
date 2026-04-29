@@ -146,9 +146,7 @@ C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\Stocks
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\scopedcss\bundle\StocksInvesthink.styles.css
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\scopedcss\projectbundle\StocksInvesthink.bundle.scp.css
-C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\1jr61rll5g-{0}-ps1q11jbif-ps1q11jbif.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\sue4epszki-{0}-23xkkig7ui-23xkkig7ui.gz
-C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ugrl0rjhqr-{0}-ibawk3r0lk-ibawk3r0lk.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\adf1azdchi-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\e19qqyqeuu-{0}-bqjiyaj88i-bqjiyaj88i.gz
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ou1bm23fu3-{0}-c2jlpeoesf-c2jlpeoesf.gz
@@ -223,3 +221,5 @@ C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\Stocks
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\StocksInvesthink.pdb
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\StocksInvesthink.genruntimeconfig.cache
 C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\ref\StocksInvesthink.dll
+C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\1jr61rll5g-{0}-7wdppb0h3n-7wdppb0h3n.gz
+C:\Users\Diana\OneDrive\Escritorio\College\VI\ImpSysInf\Projet Final\code\StocksInvesthink\StocksInvesthink\obj\Debug\net9.0\compressed\ugrl0rjhqr-{0}-48057voevq-48057voevq.gz
