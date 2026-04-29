@@ -1,40 +1,34 @@
-/* variables du theme */
+/* theme */
 :root {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --surface-2: #334155;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --accent: #38bdf8;
-    --buy: #22c55e;
-    --sell: #ef4444;
-    --hold: #f59e0b;
+    --accent: deepskyblue;
+    --buy: limegreen;
+    --sell: crimson;
 }
 
 /* body */
 body {
-    background: linear-gradient(135deg, #0f172a, #111827);
-    color: var(--text);
+    background: linear-gradient(1deg, midnightblue, black);
+    color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
 }
 
 /* navbar */
 .navbar-custom {
-    background-color: rgba(15, 23, 42, 0.95);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    background-color: black;
+    border-bottom: 1px solid gray;
 }
 
-/* cartes principales */
+/* cartes */
 .app-card {
-    background-color: var(--surface);
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    border-radius: 18px;
-    padding: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    background-color: #1e293b;
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 5px 10px black;
 }
 
-/* section principale accueil */
+/* hero */
 .hero-section {
     padding: 80px 0;
     text-align: center;
@@ -42,24 +36,23 @@ body {
 
 .hero-title {
     font-size: 3rem;
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .hero-subtitle {
-    color: var(--muted);
+    color: lightgray;
     font-size: 1.1rem;
     max-width: 700px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 /* boutons */
 .btn-primary-custom {
     background-color: var(--accent);
     border: none;
-    color: #0f172a;
-    font-weight: 600;
-    border-radius: 10px;
+    color: black;
     padding: 10px 20px;
+    border-radius: 8px;
 }
 
     .btn-primary-custom:hover {
@@ -67,105 +60,99 @@ body {
     }
 
 .btn-outline-custom {
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 10px;
-    padding: 10px 20px;
+    border: 1px solid deepskyblue;
+    color: deepskyblue;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-/* champs de formulaire */
+/* inputs */
 .form-control {
-    background-color: #0f172a;
-    border: 1px solid var(--surface-2);
-    color: var(--text);
-    border-radius: 10px;
+    background-color: midnightblue;
+    border: 1px solid #334155;
+    color: white;
+    border-radius: 8px;
 }
 
     .form-control:focus {
-        background-color: #0f172a;
-        color: var(--text);
-        border-color: var(--accent);
-        box-shadow: 0 0 0 0.2rem rgba(56, 189, 248, 0.15);
+        border-color: deepskyblue;
+        box-shadow: 0 0 5px deepskyblue;
     }
 
-/* zone login et signup */
+/* auth */
 .auth-container {
     min-height: 80vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .auth-card {
     width: 100%;
-    max-width: 460px;
-    background-color: var(--surface);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.30);
+    max-width: 450px;
+    background-color: #1e293b;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px black;
 }
 
-/* couleurs des signaux */
+/* signaux */
 .signal-buy {
     color: var(--buy);
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .signal-sell {
     color: var(--sell);
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .signal-hold {
-    color: var(--hold);
-    font-weight: 700;
+    color: orange;
+    font-weight: bold;
 }
 
 /* footer */
 .footer-custom {
-    color: var(--accent);
+    color: deepskyblue;
 }
 
-/* liste deroulante */
+/* select */
 .form-select {
-    background-color: #0f172a;
-    border: 1px solid var(--surface-2);
-    color: var(--text);
-    border-radius: 10px;
+    background-color: midnightblue;
+    border: 1px solid gray;
+    color: white;
 }
 
-.form-select:focus {
-    background-color: #0f172a;
-    color: var(--text);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 0.2rem rgba(56, 189, 248, 0.15);
-}
+    .form-select:focus {
+        border-color: deepskyblue;
+    }
 
-/* zone graphique */
+/* canvas */
 canvas {
     max-width: 100%;
 }
 
-/* titre des sections */
+/* titres */
 h4 {
-    color: var(--text);
+    color: white;
 }
 
 /* alertes */
 .alert-success {
-    background-color: rgba(34, 197, 94, 0.15);
-    border: 1px solid rgba(34, 197, 94, 0.35);
-    color: #dcfce7;
+    background-color: black;
+    border: 1px solid green;
+    color: lightgreen;
 }
 
 .alert-warning {
-    background-color: rgba(245, 158, 11, 0.15);
-    border: 1px solid rgba(245, 158, 11, 0.35);
-    color: #fef3c7;
+    background-color: black;
+    border: 1px solid orange;
+    color: yellow;
 }
 
 .alert-danger {
-    background-color: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.35);
-    color: #fee2e2;
+    background-color: pink;
+    border: 1px solid red;
+    color: darkred;
 }

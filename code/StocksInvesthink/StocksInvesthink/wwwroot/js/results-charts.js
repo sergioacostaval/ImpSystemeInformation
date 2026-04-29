@@ -19,10 +19,10 @@
     const rsi30Line = labels.map(() => 30);
     const rsi70Line = labels.map(() => 70);
 
-    const chartTextColor = "#f8fafc";
-    const chartGridColor = "rgba(148, 163, 184, 0.15)";
-    const chartBuyColor = "#22c55e";
-    const chartSellColor = "#ef4444";
+    const chartTextColor = "white";
+    const chartGridColor = "lightgray";
+    const chartBuyColor = "limegreen";
+    const chartSellColor = "red";
 
     function buildSignalDatasets(signalArray, buyValue, sellValue, sourceData, yAxisId = "y") {
         const buyData = signalArray.map((signal, index) => signal === buyValue ? sourceData[index] : null);
